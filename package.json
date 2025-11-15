@@ -1,49 +1,31 @@
 {
-  "name": "react-native-istanbul",
-  "version": "0.1.0",
-  "description": "A comprehensive React Native UI library with theme support for Expo",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "README.md"
+  "name": "react-native-istanbul-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "npm@10.8.2",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
   ],
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc --watch",
-    "prepublishOnly": "npm run build",
-    "typecheck": "tsc --noEmit"
-  },
-  "keywords": [
-    "react-native",
-    "expo",
-    "ui",
-    "components",
-    "theme"
-  ],
-  "author": "Emre Çil <info.emrecil@gmail.com>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/emre-cil/react-native-istanbul.git"
-  },
-  "bugs": {
-    "url": "https://github.com/emre-cil/react-native-istanbul/issues"
-  },
-  "homepage": "https://github.com/emre-cil/react-native-istanbul#readme",
-  "peerDependencies": {
-    "expo": ">=54.0.23",
-    "react": ">=19.1.0",
-    "react-native": ">=0.81.5"
-  },
-  "peerDependenciesMeta": {
-    "expo": {
-      "optional": true
-    }
+    "build": "turbo run build",
+    "build:package": "turbo run build --filter=react-native-istanbul",
+    "clean": "turbo run clean && rm -rf node_modules .turbo",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "dev": "turbo run start",
+    "publish:patch": "npm run build:package && npm version patch -w react-native-istanbul && npm publish -w react-native-istanbul",
+    "publish:minor": "npm run build:package && npm version minor -w react-native-istanbul && npm publish -w react-native-istanbul",
+    "publish:major": "npm run build:package && npm version major -w react-native-istanbul && npm publish -w react-native-istanbul",
+    "example": "turbo run start --filter=example",
+    "example:ios": "turbo run ios --filter=example",
+    "example:android": "turbo run android --filter=example",
+    "example:web": "turbo run web --filter=example",
+    "storybook": "turbo run storybook --filter=example",
+    "storybook:web": "turbo run storybook:web --filter=example"
   },
   "devDependencies": {
-    "@types/react": "^19.1.10",
-    "@types/react-native": "^0.72.8",
-    "typescript": "~5.9.2"
+    "typescript": "~5.9.2",
+    "turbo": "^2.6.1"
   }
 }
