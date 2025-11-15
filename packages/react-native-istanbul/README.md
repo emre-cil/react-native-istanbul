@@ -66,7 +66,7 @@ export default function HomeScreen() {
       <Button variant="primary" onPress={() => console.log("Pressed!")}>
         Click Me
       </Button>
-
+      
       <Button variant="outline" onPress={toggleTheme}>
         Toggle Theme
       </Button>
@@ -116,7 +116,7 @@ import { Button } from "react-native-istanbul";
 <Button size="lg">Large</Button>
 
 // With icons
-<Button
+<Button 
   variant="primary"
   leftIcon={<Icon name="add" />}
   onPress={() => {}}
@@ -133,18 +133,18 @@ import { Button } from "react-native-istanbul";
 
 #### Button Props
 
-| Prop         | Type                                                                         | Default      | Description                  |
-| ------------ | ---------------------------------------------------------------------------- | ------------ | ---------------------------- |
-| `children`   | `string`                                                                     | **required** | Button text content          |
-| `variant`    | `'primary' \| 'secondary' \| 'tertiary' \| 'outline' \| 'ghost' \| 'danger'` | `'primary'`  | Button variant style         |
-| `size`       | `'sm' \| 'md' \| 'lg'`                                                       | `'md'`       | Button size                  |
-| `isLoading`  | `boolean`                                                                    | `false`      | Show loading spinner         |
-| `isDisabled` | `boolean`                                                                    | `false`      | Disable button interaction   |
-| `leftIcon`   | `React.ReactNode`                                                            | `undefined`  | Icon to display on the left  |
-| `rightIcon`  | `React.ReactNode`                                                            | `undefined`  | Icon to display on the right |
-| `onPress`    | `() => void`                                                                 | **required** | Press handler                |
-| `style`      | `ViewStyle`                                                                  | `undefined`  | Additional container styles  |
-| `textStyle`  | `TextStyle`                                                                  | `undefined`  | Additional text styles       |
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `string` | **required** | Button text content |
+| `variant` | `'primary' \| 'secondary' \| 'tertiary' \| 'outline' \| 'ghost' \| 'danger'` | `'primary'` | Button variant style |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Button size |
+| `isLoading` | `boolean` | `false` | Show loading spinner |
+| `isDisabled` | `boolean` | `false` | Disable button interaction |
+| `leftIcon` | `React.ReactNode` | `undefined` | Icon to display on the left |
+| `rightIcon` | `React.ReactNode` | `undefined` | Icon to display on the right |
+| `onPress` | `() => void` | **required** | Press handler |
+| `style` | `ViewStyle` | `undefined` | Additional container styles |
+| `textStyle` | `TextStyle` | `undefined` | Additional text styles |
 
 ## Theme System
 
@@ -154,10 +154,10 @@ The `ThemeProvider` component provides theme context to your application.
 
 #### Props
 
-| Prop          | Type                            | Default      | Description        |
-| ------------- | ------------------------------- | ------------ | ------------------ |
-| `children`    | `React.ReactNode`               | **required** | App content        |
-| `initialMode` | `'light' \| 'dark' \| 'system'` | `'system'`   | Initial theme mode |
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `React.ReactNode` | **required** | App content |
+| `initialMode` | `'light' \| 'dark' \| 'system'` | `'system'` | Initial theme mode |
 
 #### Theme Modes
 
@@ -202,7 +202,7 @@ The theme object contains:
     surface: string;
     text: string;
     // ... and more
-  }
+  };
   spacing: {
     xs: number;
     sm: number;
@@ -210,26 +210,26 @@ The theme object contains:
     lg: number;
     xl: number;
     // ... and more
-  }
+  };
   fontSizes: {
     xs: number;
     sm: number;
     md: number;
     lg: number;
     // ... and more
-  }
+  };
   fontWeights: {
     regular: string;
     medium: string;
     semibold: string;
     bold: string;
-  }
+  };
   radius: {
     sm: number;
     md: number;
     lg: number;
     xl: number;
-  }
+  };
   isDark: boolean;
 }
 ```
@@ -239,16 +239,13 @@ The theme object contains:
 ### Exports
 
 #### Components
-
 - `Button` - Button component
 - `ThemeProvider` - Theme provider component
 
 #### Hooks
-
 - `useTheme` - Theme hook
 
 #### Types
-
 - `ButtonProps` - Button component props
 - `ButtonVariant` - Button variant type
 - `ButtonSize` - Button size type
@@ -256,7 +253,6 @@ The theme object contains:
 - `ThemeMode` - Theme mode type
 
 #### Tokens
-
 - `lightColors` - Light theme colors
 - `darkColors` - Dark theme colors
 - `spacing` - Spacing tokens
@@ -264,38 +260,6 @@ The theme object contains:
 - `fontWeights` - Font weight tokens
 - `lineHeights` - Line height tokens
 - `radius` - Border radius tokens
-
-## Examples
-
-Check out the [example app](./apps/example) in this repository for a complete implementation example.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## Development
-
-This project uses a monorepo structure with Turborepo.
-
-```bash
-# Install dependencies
-npm install
-
-# Build the package
-npm run build
-
-# Run example app
-npm run example
-
-# Run Storybook
-npm run storybook
-```
 
 ## License
 
@@ -306,3 +270,4 @@ MIT © [Emre Çil](https://github.com/emre-cil)
 - [GitHub Repository](https://github.com/emre-cil/react-native-istanbul)
 - [Issue Tracker](https://github.com/emre-cil/react-native-istanbul/issues)
 - [npm Package](https://www.npmjs.com/package/react-native-istanbul)
+
