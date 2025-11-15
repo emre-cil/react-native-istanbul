@@ -16,6 +16,10 @@ A comprehensive, type-safe React Native UI library with built-in theme support, 
 - ♿ **Accessible** - Built with accessibility in mind
 - 📱 **Cross-Platform** - Works on iOS, Android, and Web
 
+## Roadmap
+
+See [ROADMAP.md](./ROADMAP.md) for planned components and features.
+
 ## Installation
 
 ```bash
@@ -77,6 +81,18 @@ export default function HomeScreen() {
 
 ## Components
 
+### Available Components
+
+- ✅ **Button** - Versatile button with variants, sizes, and states
+- ✅ **Typography** - Complete typography system with variants, sizes, weights, and colors
+- ✅ **Card** - Container component with variants, elevation, header, footer, and image support
+- ✅ **Avatar** - User profile pictures with fallback options, sizes, and status indicators
+- ✅ **Badge** - Status indicators with variants (dot, number, text), positions, and colors
+- ✅ **Chip** - Small labels for tags, categories, and filters
+- ✅ **Divider** - Horizontal and vertical dividers with spacing and text support
+- ✅ **ProgressBar** - Determinate and indeterminate progress indicators
+- ✅ **Spacer** - Spacing utility component for vertical and horizontal spacing
+
 ### Button
 
 A versatile button component with multiple variants, sizes, and states.
@@ -90,12 +106,6 @@ A versatile button component with multiple variants, sizes, and states.
 - `ghost` - Minimal buttons with no background
 - `danger` - Destructive actions (delete, remove)
 
-#### Sizes
-
-- `sm` - Small (32px height)
-- `md` - Medium (44px height, default)
-- `lg` - Large (56px height)
-
 #### Example Usage
 
 ```tsx
@@ -106,45 +116,203 @@ import { Button } from "react-native-istanbul";
 
 // With variant
 <Button variant="primary">Save</Button>
-<Button variant="secondary">Learn More</Button>
 <Button variant="outline">Cancel</Button>
 <Button variant="danger">Delete</Button>
 
 // With size
 <Button size="sm">Small</Button>
-<Button size="md">Medium</Button>
 <Button size="lg">Large</Button>
-
-// With icons
-<Button
-  variant="primary"
-  leftIcon={<Icon name="add" />}
-  onPress={() => {}}
->
-  Add Item
-</Button>
 
 // With loading state
 <Button isLoading>Loading...</Button>
-
-// Disabled state
-<Button isDisabled>Disabled</Button>
 ```
 
-#### Button Props
+### Card
 
-| Prop         | Type                                                                         | Default      | Description                  |
-| ------------ | ---------------------------------------------------------------------------- | ------------ | ---------------------------- |
-| `children`   | `string`                                                                     | **required** | Button text content          |
-| `variant`    | `'primary' \| 'secondary' \| 'tertiary' \| 'outline' \| 'ghost' \| 'danger'` | `'primary'`  | Button variant style         |
-| `size`       | `'sm' \| 'md' \| 'lg'`                                                       | `'md'`       | Button size                  |
-| `isLoading`  | `boolean`                                                                    | `false`      | Show loading spinner         |
-| `isDisabled` | `boolean`                                                                    | `false`      | Disable button interaction   |
-| `leftIcon`   | `React.ReactNode`                                                            | `undefined`  | Icon to display on the left  |
-| `rightIcon`  | `React.ReactNode`                                                            | `undefined`  | Icon to display on the right |
-| `onPress`    | `() => void`                                                                 | **required** | Press handler                |
-| `style`      | `ViewStyle`                                                                  | `undefined`  | Additional container styles  |
-| `textStyle`  | `TextStyle`                                                                  | `undefined`  | Additional text styles       |
+A versatile container component for displaying content with elevation and structure.
+
+#### Example Usage
+
+```tsx
+import { Card, Typography } from "react-native-istanbul";
+
+// Basic card
+<Card headerTitle="Card Title">
+  <Typography>Card content here</Typography>
+</Card>
+
+// With image and footer actions
+<Card
+  variant="elevated"
+  elevation={4}
+  image={require("./image.png")}
+  headerTitle="Complete Card"
+  headerSubtitle="With all features"
+  footerActions={
+    <>
+      <Button variant="ghost" size="sm">Cancel</Button>
+      <Button variant="primary" size="sm">Accept</Button>
+    </>
+  }
+>
+  <Typography>Card content</Typography>
+</Card>
+
+// Clickable card
+<Card
+  clickable
+  onPress={() => console.log("Card pressed")}
+  headerTitle="Clickable Card"
+>
+  <Typography>Tap this card</Typography>
+</Card>
+```
+
+### Avatar
+
+Display user profile pictures with fallback options.
+
+#### Example Usage
+
+```tsx
+import { Avatar } from "react-native-istanbul";
+
+// With image
+<Avatar source={require("./avatar.png")} size="lg" />
+
+// With initials
+<Avatar name="John Doe" size="md" />
+
+// With status
+<Avatar name="Jane Smith" status="online" />
+
+// With border
+<Avatar name="Bob" borderColor="primary" borderWidth={3} />
+```
+
+### Typography
+
+Complete typography system with variants, sizes, weights, and colors.
+
+#### Example Usage
+
+```tsx
+import { Typography } from "react-native-istanbul";
+
+// Variants
+<Typography variant="h1">Heading 1</Typography>
+<Typography variant="body">Body text</Typography>
+<Typography variant="caption">Caption text</Typography>
+
+// With colors
+<Typography color="primary">Primary color</Typography>
+<Typography color="error">Error text</Typography>
+
+// With custom size and weight
+<Typography size="xl" weight="bold">Custom text</Typography>
+```
+
+### Badge
+
+Status indicators for notifications, counts, and labels.
+
+#### Example Usage
+
+```tsx
+import { Badge, Button } from "react-native-istanbul";
+
+// Number badge
+<Badge variant="number" content={5} />
+
+// Dot badge
+<Badge variant="dot" />
+
+// Overlay badge
+<Badge content={99} position="top-right">
+  <Button>Notifications</Button>
+</Badge>
+```
+
+### Chip
+
+Small labels for tags, categories, and filters.
+
+#### Example Usage
+
+```tsx
+import { Chip } from "react-native-istanbul";
+
+// Basic chip
+<Chip label="React" />
+
+// Deletable chip
+<Chip label="Deletable" deletable onDelete={() => {}} />
+
+// Outlined variant
+<Chip label="Outlined" variant="outlined" />
+```
+
+### ProgressBar
+
+Progress indicators for loading states and completion.
+
+#### Example Usage
+
+```tsx
+import { ProgressBar } from "react-native-istanbul";
+
+// Determinate
+<ProgressBar value={65} showLabel />
+
+// Indeterminate
+<ProgressBar variant="indeterminate" />
+
+// With colors
+<ProgressBar value={50} color="success" />
+```
+
+### Divider
+
+Separator lines for content sections.
+
+#### Example Usage
+
+```tsx
+import { Divider } from "react-native-istanbul";
+
+// Horizontal divider
+<Divider />
+
+// With text
+<Divider text="OR" />
+
+// Vertical divider
+<Divider orientation="vertical" />
+```
+
+### Spacer
+
+Spacing utility component.
+
+#### Example Usage
+
+```tsx
+import { Spacer } from "react-native-istanbul";
+
+// Vertical spacing
+<View>
+  <Text>Item 1</Text>
+  <Spacer size="md" />
+  <Text>Item 2</Text>
+</View>
+
+// Horizontal spacing
+<View style={{ flexDirection: "row" }}>
+  <Button>Left</Button>
+  <Spacer orientation="horizontal" size="lg" />
+  <Button>Right</Button>
+</View>
+```
 
 ## Theme System
 
@@ -240,7 +408,15 @@ The theme object contains:
 
 #### Components
 
-- `Button` - Button component
+- `Button` - Button component with variants, sizes, and states
+- `Typography` - Typography component with variants, sizes, weights, and colors
+- `Card` - Container component with variants, elevation, header, footer, and image
+- `Avatar` - User profile pictures with fallback options and status indicators
+- `Badge` - Status indicators with variants, positions, and colors
+- `Chip` - Small labels for tags, categories, and filters
+- `Divider` - Horizontal and vertical dividers
+- `ProgressBar` - Progress indicators (determinate and indeterminate)
+- `Spacer` - Spacing utility component
 - `ThemeProvider` - Theme provider component
 
 #### Hooks
@@ -249,11 +425,16 @@ The theme object contains:
 
 #### Types
 
-- `ButtonProps` - Button component props
-- `ButtonVariant` - Button variant type
-- `ButtonSize` - Button size type
-- `Theme` - Theme object type
-- `ThemeMode` - Theme mode type
+- `ButtonProps`, `ButtonVariant`, `ButtonSize` - Button types
+- `TypographyProps`, `TypographyVariant` - Typography types
+- `CardProps`, `CardVariant` - Card types
+- `AvatarProps`, `AvatarSize`, `AvatarFallback`, `AvatarStatus` - Avatar types
+- `BadgeProps`, `BadgeVariant`, `BadgePosition`, `BadgeSize` - Badge types
+- `ChipProps`, `ChipVariant`, `ChipSize` - Chip types
+- `DividerProps`, `DividerOrientation`, `DividerVariant` - Divider types
+- `ProgressBarProps`, `ProgressBarVariant`, `ProgressBarSize` - ProgressBar types
+- `SpacerProps`, `SpacerOrientation` - Spacer types
+- `Theme`, `ThemeMode` - Theme types
 
 #### Tokens
 

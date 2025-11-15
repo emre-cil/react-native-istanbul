@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import {
   TouchableOpacity,
-  Text,
+  View,
   StyleSheet,
   ActivityIndicator,
   type ViewStyle,
@@ -10,15 +10,24 @@ import {
 } from "react-native";
 import { useTheme } from "../providers/ThemeProvider";
 import type { SpacingKey } from "../tokens/spacing";
+import { Typography } from "./Typography";
 
 export type ButtonVariant =
   | "primary"
   | "secondary"
   | "tertiary"
+  | "surface"
   | "outline"
   | "ghost"
   | "danger";
 export type ButtonSize = "sm" | "md" | "lg";
+export type ButtonPosition =
+  | "auto"
+  | "flex-start"
+  | "flex-end"
+  | "center"
+  | "stretch"
+  | "baseline";
 
 export interface ButtonProps extends Omit<TouchableOpacityProps, "style"> {
   children: string;
@@ -28,6 +37,8 @@ export interface ButtonProps extends Omit<TouchableOpacityProps, "style"> {
   isDisabled?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+  fullWidth?: boolean;
+  position?: ButtonPosition;
   style?: ViewStyle;
   textStyle?: TextStyle;
 }
@@ -40,6 +51,8 @@ export const Button: React.FC<ButtonProps> = ({
   isDisabled = false,
   leftIcon,
   rightIcon,
+  fullWidth = false,
+  position,
   style,
   textStyle,
   ...props
@@ -89,6 +102,16 @@ export const Button: React.FC<ButtonProps> = ({
         return {
           container: {
             backgroundColor: disabled
+              ? theme.colors.textDisabled
+              : theme.colors.tertiary,
+          },
+          textColor: "#FFFFFF",
+        };
+
+      case "surface":
+        return {
+          container: {
+            backgroundColor: disabled
               ? theme.colors.borderLight
               : theme.colors.surface,
           },
@@ -129,6 +152,10 @@ export const Button: React.FC<ButtonProps> = ({
     }
   }, [variant, disabled, theme]);
 
+  // Determine alignSelf value: position prop takes priority, then fullWidth, then default
+  const alignSelfValue: ButtonPosition =
+    position ?? (fullWidth ? "stretch" : "flex-start");
+
   return (
     <TouchableOpacity
       {...props}
@@ -140,33 +167,39 @@ export const Button: React.FC<ButtonProps> = ({
           height: config.height,
           paddingHorizontal: theme.spacing[config.paddingHorizontal],
           borderRadius: theme.radius.md,
+          alignSelf: alignSelfValue,
         },
         variantStyles.container,
         style,
       ]}
     >
-      {isLoading ? (
-        <ActivityIndicator color={variantStyles.textColor} />
-      ) : (
-        <>
-          {leftIcon}
-          <Text
-            style={[
-              styles.text,
-              {
-                fontSize: config.fontSize,
-                color: variantStyles.textColor,
-                fontWeight: theme.fontWeights.semibold,
-                marginLeft: leftIcon ? theme.spacing.sm : 0,
-                marginRight: rightIcon ? theme.spacing.sm : 0,
-              },
-              textStyle,
-            ]}
-          >
-            {children}
-          </Text>
-          {rightIcon}
-        </>
+      {/* Always render content to maintain width, but make it invisible when loading */}
+      <View style={[styles.contentContainer, { opacity: isLoading ? 0 : 1 }]}>
+        {leftIcon}
+        <Typography
+          variant="body"
+          size={size === "sm" ? "sm" : size === "lg" ? "lg" : "md"}
+          weight="semibold"
+          textColor={variantStyles.textColor}
+          style={[
+            styles.text,
+            {
+              marginLeft: leftIcon ? theme.spacing.sm : 0,
+              marginRight: rightIcon ? theme.spacing.sm : 0,
+            },
+            textStyle,
+          ]}
+        >
+          {children}
+        </Typography>
+        {rightIcon}
+      </View>
+      {/* Show loading indicator on top of invisible content */}
+      {isLoading && (
+        <ActivityIndicator
+          color={variantStyles.textColor}
+          style={styles.loader}
+        />
       )}
     </TouchableOpacity>
   );
@@ -177,8 +210,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    position: "relative",
+  },
+  contentContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
   text: {
     textAlign: "center",
+  },
+  loader: {
+    position: "absolute",
   },
 });

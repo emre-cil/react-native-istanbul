@@ -11,6 +11,7 @@ import {
   lightColors,
   darkColors,
   spacing,
+  fonts,
   fontSizes,
   fontWeights,
   lineHeights,
@@ -51,6 +52,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     () => ({
       colors: isDark ? darkColors : lightColors,
       spacing,
+      fonts,
       fontSizes,
       fontWeights,
       lineHeights,

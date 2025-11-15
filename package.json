@@ -21,6 +21,8 @@
     "example:ios": "turbo run ios --filter=example",
     "example:android": "turbo run android --filter=example",
     "example:web": "turbo run web --filter=example",
+    "dev:watch": "npm run watch -w react-native-istanbul",
+    "dev:example": "npm run example",
     "storybook": "turbo run storybook --filter=example",
     "storybook:web": "turbo run storybook:web --filter=example"
   },
