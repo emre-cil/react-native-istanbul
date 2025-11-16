@@ -9,10 +9,13 @@ import {
   Spacer,
   Card,
   Avatar,
+  TextInput,
   useTheme,
   type ButtonVariant,
   type TypographyVariant,
 } from "react-native-istanbul";
+import { Ionicons } from "@expo/vector-icons";
+import { useState } from "react";
 
 const variants: ButtonVariant[] = [
   "primary",
@@ -42,6 +45,23 @@ const typographyVariants: TypographyVariant[] = [
 
 export default function HomeScreen() {
   const { theme, toggleTheme, themeMode } = useTheme();
+
+  // TextInput states
+  const [textInput1, setTextInput1] = useState("");
+  const [textInput2, setTextInput2] = useState("");
+  const [textInput3, setTextInput3] = useState("");
+  const [textInput4, setTextInput4] = useState("");
+  const [textInput5, setTextInput5] = useState("");
+  const [textInput6, setTextInput6] = useState("");
+  const [textInput7, setTextInput7] = useState("");
+  const [textInput8, setTextInput8] = useState("");
+  const [textInput9, setTextInput9] = useState("");
+  const [textInput10, setTextInput10] = useState("");
+  const [textInput11, setTextInput11] = useState("");
+  const [textInput12, setTextInput12] = useState("");
+  const [textInput13, setTextInput13] = useState("");
+  const [textInput14, setTextInput14] = useState("");
+  const [textInput15, setTextInput15] = useState("");
 
   return (
     <ScrollView
@@ -1028,6 +1048,201 @@ export default function HomeScreen() {
               content, and footer actions.
             </Typography>
           </Card>
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Typography variant="h3" color="text">
+          TextInput
+        </Typography>
+        <Typography variant="bodySmall" color="textSecondary">
+          Input variants:
+        </Typography>
+        <View style={styles.componentContainer}>
+          <TextInput
+            variant="default"
+            label="Default Variant"
+            placeholder="Default input"
+            value={textInput1}
+            onChangeText={setTextInput1}
+          />
+          <TextInput
+            variant="outlined"
+            label="Outlined Variant"
+            placeholder="Outlined input"
+            value={textInput2}
+            onChangeText={setTextInput2}
+          />
+          <TextInput
+            variant="filled"
+            label="Filled Variant"
+            placeholder="Filled input"
+            value={textInput3}
+            onChangeText={setTextInput3}
+          />
+        </View>
+        <Typography
+          variant="bodySmall"
+          color="textSecondary"
+          style={styles.subsectionTitle}
+        >
+          Sizes:
+        </Typography>
+        <View style={styles.componentContainer}>
+          <TextInput
+            size="sm"
+            label="Small"
+            placeholder="Small input"
+            value={textInput4}
+            onChangeText={setTextInput4}
+          />
+          <TextInput
+            size="md"
+            label="Medium"
+            placeholder="Medium input"
+            value={textInput5}
+            onChangeText={setTextInput5}
+          />
+          <TextInput
+            size="lg"
+            label="Large"
+            placeholder="Large input"
+            value={textInput6}
+            onChangeText={setTextInput6}
+          />
+          <TextInput
+            size="xl"
+            label="Extra Large (Description)"
+            placeholder="Enter description..."
+            value={textInput15}
+            onChangeText={setTextInput15}
+            maxLength={200}
+            showCounter
+          />
+        </View>
+        <Typography
+          variant="bodySmall"
+          color="textSecondary"
+          style={styles.subsectionTitle}
+        >
+          With icons:
+        </Typography>
+        <View style={styles.componentContainer}>
+          <TextInput
+            label="With Left Icon"
+            placeholder="Search..."
+            value={textInput7}
+            onChangeText={setTextInput7}
+            leftIcon={
+              <Ionicons
+                name="search"
+                size={20}
+                color={theme.colors.textTertiary}
+              />
+            }
+          />
+          <TextInput
+            label="With Right Icon"
+            placeholder="Enter email"
+            value={textInput8}
+            onChangeText={setTextInput8}
+            rightIcon={
+              <Ionicons
+                name="mail"
+                size={20}
+                color={theme.colors.textTertiary}
+              />
+            }
+          />
+        </View>
+        <Typography
+          variant="bodySmall"
+          color="textSecondary"
+          style={styles.subsectionTitle}
+        >
+          Clearable and password:
+        </Typography>
+        <View style={styles.componentContainer}>
+          <TextInput
+            label="Clearable Input"
+            placeholder="Type to see clear button"
+            value={textInput9}
+            onChangeText={setTextInput9}
+            clearable
+          />
+          <TextInput
+            label="Password"
+            placeholder="Enter password"
+            value={textInput10}
+            onChangeText={setTextInput10}
+            secureTextEntry
+            showPasswordToggle
+          />
+        </View>
+        <Typography
+          variant="bodySmall"
+          color="textSecondary"
+          style={styles.subsectionTitle}
+        >
+          Error and helper text:
+        </Typography>
+        <View style={styles.componentContainer}>
+          <TextInput
+            label="Email"
+            placeholder="Enter email"
+            value={textInput11}
+            onChangeText={setTextInput11}
+            error="Please enter a valid email address"
+          />
+          <TextInput
+            label="Username"
+            placeholder="Enter username"
+            value={textInput12}
+            onChangeText={setTextInput12}
+            helperText="Username must be at least 3 characters"
+          />
+        </View>
+        <Typography
+          variant="bodySmall"
+          color="textSecondary"
+          style={styles.subsectionTitle}
+        >
+          Character counter and multiline:
+        </Typography>
+        <View style={styles.componentContainer}>
+          <TextInput
+            label="Bio"
+            placeholder="Tell us about yourself"
+            value={textInput13}
+            onChangeText={setTextInput13}
+            maxLength={100}
+            showCounter
+            multiline
+            numberOfLines={4}
+          />
+          <TextInput
+            label="Message"
+            placeholder="Enter your message"
+            value={textInput14}
+            onChangeText={setTextInput14}
+            multiline
+            numberOfLines={4}
+          />
+        </View>
+        <Typography
+          variant="bodySmall"
+          color="textSecondary"
+          style={styles.subsectionTitle}
+        >
+          Disabled state:
+        </Typography>
+        <View style={styles.componentContainer}>
+          <TextInput
+            label="Disabled Input"
+            placeholder="Cannot edit"
+            value="Disabled value"
+            editable={false}
+          />
         </View>
       </View>
     </ScrollView>

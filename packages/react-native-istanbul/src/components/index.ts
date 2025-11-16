@@ -7,3 +7,4 @@ export * from "./ProgressBar";
 export * from "./Spacer";
 export * from "./Card";
 export * from "./Avatar";
+export * from "./TextInput";

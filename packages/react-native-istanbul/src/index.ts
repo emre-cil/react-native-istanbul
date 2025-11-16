@@ -12,6 +12,7 @@ export {
   Spacer,
   Card,
   Avatar,
+  TextInput,
 } from "./components";
 export type {
   ButtonProps,
@@ -40,6 +41,9 @@ export type {
   AvatarSize,
   AvatarFallback,
   AvatarStatus,
+  TextInputProps,
+  TextInputVariant,
+  TextInputSize,
 } from "./components";
 
 // Tokens
