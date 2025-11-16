@@ -15,44 +15,13 @@ This document outlines the planned components and features for the React Native 
 - Spacer - Spacing utility component for vertical and horizontal spacing
 - Card - Versatile container with variants, elevation, header, footer, and image support
 - Avatar - User profile pictures with fallback options, sizes, and status indicators
+- TextInput - Comprehensive text input component with variants, states, labels, icons, and validation support
+- Toggle - Toggle switch component with sizes, states, and label support
+- Checkbox - Checkbox component with checked, unchecked, and indeterminate states
 
 ## High Priority Components
 
-### 1. Input / TextInput
-
-**Priority:** 🔴 Critical  
-**Status:** 📋 Planned
-
-A comprehensive text input component for forms and user input. Essential for any form-based application.
-
-**Features:**
-
-- Variants: default, outlined, filled
-- States: error, disabled, focused
-- Label and placeholder support
-- Helper text and error messages
-- Icon support (left/right)
-- Password visibility toggle
-- Character counter
-- Multiline support
-
-**Props:**
-
-- `variant`: "default" | "outlined" | "filled"
-- `size`: "sm" | "md" | "lg"
-- `error`: boolean
-- `disabled`: boolean
-- `label`: string
-- `placeholder`: string
-- `helperText`: string
-- `leftIcon`: ReactNode
-- `rightIcon`: ReactNode
-- `multiline`: boolean
-- `secureTextEntry`: boolean
-
----
-
-### 2. Header / AppBar
+### 1. Header / AppBar
 
 **Priority:** 🔴 Critical  
 **Status:** 📋 Planned
@@ -80,7 +49,7 @@ A navigation header component with back button, title, and action buttons. Used 
 
 ---
 
-### 3. Bottom Sheet
+### 2. Bottom Sheet
 
 **Priority:** 🔴 Critical  
 **Status:** 📋 Planned
@@ -109,7 +78,7 @@ A draggable bottom sheet component for selections, forms, and overlays. Essentia
 
 ---
 
-### 4. ListItem
+### 3. ListItem
 
 **Priority:** 🟡 High  
 **Status:** 📋 Planned
@@ -137,7 +106,7 @@ A list item component for settings, menus, and data display. Used in settings sc
 
 ---
 
-### 5. Select / Picker
+### 4. Select / Picker
 
 **Priority:** 🟡 High  
 **Status:** 📋 Planned
@@ -167,59 +136,7 @@ A selection component for choosing from a list of options. Used in forms and set
 
 ## Medium Priority Components
 
-### 6. Switch / Toggle
-
-**Priority:** 🟢 Medium  
-**Status:** 📋 Planned
-
-A toggle switch component for on/off states.
-
-**Features:**
-
-- Sizes: sm, md, lg
-- Disabled state
-- Label and helper text support
-- Custom colors
-
-**Props:**
-
-- `value`: boolean
-- `onValueChange`: function
-- `size`: "sm" | "md" | "lg"
-- `disabled`: boolean
-- `label`: string
-- `helperText`: string
-- `color`: ColorKey
-
----
-
-### 7. Checkbox
-
-**Priority:** 🟢 Medium  
-**Status:** 📋 Planned
-
-A checkbox component for multiple selections.
-
-**Features:**
-
-- Checked, unchecked, and indeterminate states
-- Label and helper text
-- Group checkbox support
-- Custom colors
-
-**Props:**
-
-- `checked`: boolean
-- `onChange`: function
-- `indeterminate`: boolean
-- `disabled`: boolean
-- `label`: string
-- `helperText`: string
-- `color`: ColorKey
-
----
-
-### 8. Radio
+### 5. Radio
 
 **Priority:** 🟢 Medium  
 **Status:** 📋 Planned
@@ -245,7 +162,7 @@ A radio button component for single selection.
 
 ---
 
-### 9. Modal / Dialog
+### 6. Modal / Dialog
 
 **Priority:** 🟢 Medium  
 **Status:** 📋 Planned
@@ -273,7 +190,7 @@ A modal dialog component for overlays and confirmations.
 
 ## Advanced Components
 
-### 10. Tabs
+### 7. Tabs
 
 **Priority:** 🔵 Low  
 **Status:** 📋 Planned
@@ -298,7 +215,7 @@ A tab navigation component.
 
 ---
 
-### 11. Accordion
+### 8. Accordion
 
 **Priority:** 🔵 Low  
 **Status:** 📋 Planned
@@ -321,7 +238,7 @@ An expandable/collapsible content section.
 
 ---
 
-### 12. Skeleton / Shimmer
+### 9. Skeleton / Shimmer
 
 **Priority:** 🔵 Low  
 **Status:** 📋 Planned
@@ -417,4 +334,4 @@ If you'd like to contribute a component, please:
 
 ---
 
-**Last Updated:** January 2025
+**Last Updated:** January 2025 (Updated - TextInput, Toggle, and Checkbox moved to completed)
