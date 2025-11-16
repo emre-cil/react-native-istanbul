@@ -8,3 +8,5 @@ export * from "./Spacer";
 export * from "./Card";
 export * from "./Avatar";
 export * from "./TextInput";
+export * from "./Toggle";
+export * from "./Checkbox";

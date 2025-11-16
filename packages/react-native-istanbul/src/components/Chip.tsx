@@ -176,9 +176,9 @@ export const Chip: React.FC<ChipProps> = ({
       ? theme.colors.text
       : variant === "filled"
         ? theme.colors.surface
-        : disabled
-          ? theme.colors.textDisabled
-          : theme.colors[color];
+      : disabled
+        ? theme.colors.textDisabled
+        : theme.colors[color];
 
   const handlePress = disabled ? undefined : onPress;
   const handleDelete = disabled ? undefined : onDelete;
@@ -238,28 +238,28 @@ export const Chip: React.FC<ChipProps> = ({
       )}
 
       <View style={[styles.chipContent, variant === "liquidGlass" && styles.liquidGlassContent]}>
-        {leftIcon && <View style={styles.iconLeft}>{leftIcon}</View>}
-        <Typography
-          variant="caption"
-          size={size === "sm" ? "xs" : "sm"}
-          textColor={textColor}
-          style={{ fontSize: config.fontSize }}
-          numberOfLines={1}
+      {leftIcon && <View style={styles.iconLeft}>{leftIcon}</View>}
+      <Typography
+        variant="caption"
+        size={size === "sm" ? "xs" : "sm"}
+        textColor={textColor}
+        style={{ fontSize: config.fontSize }}
+        numberOfLines={1}
+      >
+        {label}
+      </Typography>
+      {rightIcon && !deletable && (
+        <View style={styles.iconRight}>{rightIcon}</View>
+      )}
+      {deletable && !rightIcon && (
+        <TouchableOpacity
+          onPress={handleDelete}
+          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+          style={styles.deleteButton}
         >
-          {label}
-        </Typography>
-        {rightIcon && !deletable && (
-          <View style={styles.iconRight}>{rightIcon}</View>
-        )}
-        {deletable && !rightIcon && (
-          <TouchableOpacity
-            onPress={handleDelete}
-            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-            style={styles.deleteButton}
-          >
-            <Ionicons name="close" size={iconSize} color={textColor} />
-          </TouchableOpacity>
-        )}
+          <Ionicons name="close" size={iconSize} color={textColor} />
+        </TouchableOpacity>
+      )}
       </View>
     </View>
   );

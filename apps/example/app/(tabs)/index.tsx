@@ -10,6 +10,8 @@ import {
   Card,
   Avatar,
   TextInput,
+  Toggle,
+  Checkbox,
   useTheme,
   type ButtonVariant,
   type TypographyVariant,
@@ -61,6 +63,26 @@ export default function HomeScreen() {
   const [textInput12, setTextInput12] = useState("");
   const [textInput13, setTextInput13] = useState("");
   const [textInput14, setTextInput14] = useState("");
+
+  // Toggle states
+  const [toggle1, setToggle1] = useState(false);
+  const [toggle2, setToggle2] = useState(true);
+  const [toggle3, setToggle3] = useState(false);
+  const [toggle4, setToggle4] = useState(false);
+  const [toggle5, setToggle5] = useState(true);
+  const [toggle6, setToggle6] = useState(true);
+  const [toggle7, setToggle7] = useState(true);
+  const [toggle8, setToggle8] = useState(true);
+
+  // Checkbox states
+  const [checkbox1, setCheckbox1] = useState(false);
+  const [checkbox2, setCheckbox2] = useState(true);
+  const [checkbox3, setCheckbox3] = useState(false);
+  const [checkbox4, setCheckbox4] = useState(false);
+  const [checkbox5, setCheckbox5] = useState(true);
+  const [checkbox6, setCheckbox6] = useState(true);
+  const [checkbox7, setCheckbox7] = useState(true);
+  const [checkbox8, setCheckbox8] = useState(true);
   const [textInput15, setTextInput15] = useState("");
 
   return (
@@ -1242,6 +1264,160 @@ export default function HomeScreen() {
             placeholder="Cannot edit"
             value="Disabled value"
             editable={false}
+          />
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Typography variant="h3" color="text">
+          Toggle
+        </Typography>
+        <Typography variant="bodySmall" color="textSecondary">
+          Variants:
+        </Typography>
+        <View style={styles.componentContainer}>
+          <Toggle
+            variant="default"
+            value={toggle1}
+            onValueChange={setToggle1}
+            label="Default Variant"
+          />
+          <Toggle
+            variant="liquidGlass"
+            value={toggle2}
+            onValueChange={setToggle2}
+            label="Liquid Glass Variant"
+          />
+        </View>
+        <Typography
+          variant="bodySmall"
+          color="textSecondary"
+          style={styles.subsectionTitle}
+        >
+          Sizes:
+        </Typography>
+        <View style={styles.componentContainer}>
+          <Toggle
+            size="sm"
+            value={toggle3}
+            onValueChange={setToggle3}
+            label="Small"
+          />
+          <Toggle
+            size="md"
+            value={toggle4}
+            onValueChange={setToggle4}
+            label="Medium"
+          />
+          <Toggle
+            size="lg"
+            value={toggle5}
+            onValueChange={setToggle5}
+            label="Large"
+          />
+        </View>
+        <Typography
+          variant="bodySmall"
+          color="textSecondary"
+          style={styles.subsectionTitle}
+        >
+          Colors:
+        </Typography>
+        <View style={styles.componentContainer}>
+          <Toggle
+            value={toggle6}
+            onValueChange={setToggle6}
+            activeColor="primary"
+            label="Primary"
+          />
+          <Toggle
+            value={toggle7}
+            onValueChange={setToggle7}
+            activeColor="success"
+            label="Success"
+          />
+          <Toggle
+            value={toggle8}
+            onValueChange={setToggle8}
+            activeColor="error"
+            label="Error"
+          />
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Typography variant="h3" color="text">
+          Checkbox
+        </Typography>
+        <Typography variant="bodySmall" color="textSecondary">
+          Variants:
+        </Typography>
+        <View style={styles.componentContainer}>
+          <Checkbox
+            variant="default"
+            value={checkbox1}
+            onValueChange={setCheckbox1}
+            label="Default Variant"
+          />
+          <Checkbox
+            variant="liquidGlass"
+            value={checkbox2}
+            onValueChange={setCheckbox2}
+            label="Liquid Glass Variant"
+          />
+        </View>
+        <Typography
+          variant="bodySmall"
+          color="textSecondary"
+          style={styles.subsectionTitle}
+        >
+          Sizes:
+        </Typography>
+        <View style={styles.componentContainer}>
+          <Checkbox
+            size="sm"
+            value={checkbox3}
+            onValueChange={setCheckbox3}
+            label="Small"
+          />
+          <Checkbox
+            size="md"
+            value={checkbox4}
+            onValueChange={setCheckbox4}
+            label="Medium"
+          />
+          <Checkbox
+            size="lg"
+            value={checkbox5}
+            onValueChange={setCheckbox5}
+            label="Large"
+          />
+        </View>
+        <Typography
+          variant="bodySmall"
+          color="textSecondary"
+          style={styles.subsectionTitle}
+        >
+          Colors:
+        </Typography>
+        <View style={styles.componentContainer}>
+          <Checkbox
+            value={checkbox6}
+            onValueChange={setCheckbox6}
+            activeColor="primary"
+            label="Primary"
+          />
+          <Checkbox
+            value={checkbox7}
+            onValueChange={setCheckbox7}
+            activeColor="success"
+            label="Success"
+          />
+          <Checkbox
+            value={checkbox8}
+            onValueChange={setCheckbox8}
+            activeColor="error"
+            label="Error"
           />
         </View>
       </View>
