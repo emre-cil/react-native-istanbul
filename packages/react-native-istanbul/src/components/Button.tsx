@@ -4,10 +4,18 @@ import {
   View,
   StyleSheet,
   ActivityIndicator,
+  Platform,
   type ViewStyle,
   type TextStyle,
   type TouchableOpacityProps,
 } from "react-native";
+import { BlurView } from "expo-blur";
+import { LinearGradient } from "expo-linear-gradient";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from "react-native-reanimated";
 import { useTheme } from "../providers/ThemeProvider";
 import type { SpacingKey } from "../tokens/spacing";
 import { Typography } from "./Typography";
@@ -19,7 +27,8 @@ export type ButtonVariant =
   | "surface"
   | "outline"
   | "ghost"
-  | "danger";
+  | "danger"
+  | "liquidGlass";
 export type ButtonSize = "sm" | "md" | "lg";
 export type ButtonPosition =
   | "auto"
@@ -149,6 +158,31 @@ export const Button: React.FC<ButtonProps> = ({
           },
           textColor: "#FFFFFF",
         };
+
+      case "liquidGlass":
+        return {
+          container: {
+            backgroundColor: disabled
+              ? "rgba(255,255,255,0.05)"
+              : "rgba(255,255,255,0.1)",
+            borderWidth: 1,
+            borderColor: disabled
+              ? "rgba(255,255,255,0.1)"
+              : "rgba(255,255,255,0.2)",
+            ...Platform.select({
+              ios: {
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 4 },
+                shadowOpacity: 0.1,
+                shadowRadius: 8,
+              },
+              android: {
+                elevation: 4,
+              },
+            }),
+          },
+          textColor: "#FFFFFF",
+        };
     }
   }, [variant, disabled, theme]);
 
@@ -156,23 +190,51 @@ export const Button: React.FC<ButtonProps> = ({
   const alignSelfValue: ButtonPosition =
     position ?? (fullWidth ? "stretch" : "flex-start");
 
-  return (
-    <TouchableOpacity
-      {...props}
-      disabled={disabled}
-      activeOpacity={0.7}
-      style={[
-        styles.base,
-        {
-          height: config.height,
-          paddingHorizontal: theme.spacing[config.paddingHorizontal],
-          borderRadius: theme.radius.md,
-          alignSelf: alignSelfValue,
-        },
-        variantStyles.container,
-        style,
-      ]}
-    >
+  // Animation for liquidGlass variant
+  const scale = useSharedValue(1);
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ scale: scale.value }],
+    };
+  });
+
+  const handlePressIn = () => {
+    if (variant === "liquidGlass" && !disabled) {
+      scale.value = withSpring(0.95, {
+        damping: 15,
+        stiffness: 150,
+      });
+    }
+  };
+
+  const handlePressOut = () => {
+    if (variant === "liquidGlass" && !disabled) {
+      scale.value = withSpring(1, {
+        damping: 15,
+        stiffness: 150,
+      });
+    }
+  };
+
+  // Base button container style
+  const containerStyle = [
+    styles.base,
+    {
+      height: config.height,
+      paddingHorizontal: theme.spacing[config.paddingHorizontal],
+      borderRadius: theme.radius.md,
+      alignSelf: alignSelfValue,
+      overflow: (variant === "liquidGlass" ? "hidden" : "visible") as
+        | "hidden"
+        | "visible",
+    },
+    variantStyles.container,
+    style,
+  ].filter(Boolean) as ViewStyle[];
+
+  // Content component
+  const content = (
+    <>
       {/* Always render content to maintain width, but make it invisible when loading */}
       <View style={[styles.contentContainer, { opacity: isLoading ? 0 : 1 }]}>
         {leftIcon}
@@ -201,6 +263,51 @@ export const Button: React.FC<ButtonProps> = ({
           style={styles.loader}
         />
       )}
+    </>
+  );
+
+  // Render liquidGlass variant with BlurView and LinearGradient
+  if (variant === "liquidGlass") {
+    return (
+      <Animated.View style={animatedStyle}>
+        <TouchableOpacity
+          {...props}
+          disabled={disabled}
+          activeOpacity={1}
+          onPressIn={handlePressIn}
+          onPressOut={handlePressOut}
+          style={containerStyle}
+        >
+          <BlurView
+            intensity={disabled ? 10 : 20}
+            tint="light"
+            style={StyleSheet.absoluteFill}
+          />
+          <LinearGradient
+            colors={
+              disabled
+                ? ["rgba(255,255,255,0.05)", "rgba(255,255,255,0.02)"]
+                : ["rgba(255,255,255,0.15)", "rgba(255,255,255,0.05)"]
+            }
+            start={{ x: 0, y: 0 }}
+            end={{ x: 0, y: 1 }}
+            style={StyleSheet.absoluteFill}
+          />
+          <View style={styles.liquidGlassContent}>{content}</View>
+        </TouchableOpacity>
+      </Animated.View>
+    );
+  }
+
+  // Render other variants normally
+  return (
+    <TouchableOpacity
+      {...props}
+      disabled={disabled}
+      activeOpacity={0.7}
+      style={containerStyle}
+    >
+      {content}
     </TouchableOpacity>
   );
 };
@@ -222,5 +329,12 @@ const styles = StyleSheet.create({
   },
   loader: {
     position: "absolute",
+  },
+  liquidGlassContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    zIndex: 1,
   },
 });

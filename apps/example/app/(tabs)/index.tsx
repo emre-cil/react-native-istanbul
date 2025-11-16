@@ -22,6 +22,7 @@ const variants: ButtonVariant[] = [
   "outline",
   "ghost",
   "danger",
+  "liquidGlass",
 ];
 
 const sizes: ("sm" | "md" | "lg")[] = ["sm", "md", "lg"];
@@ -511,6 +512,11 @@ export default function HomeScreen() {
           <View style={styles.chipRow}>
             <Chip label="Filled" variant="filled" />
             <Chip label="Outlined" variant="outlined" />
+            <Chip
+              label="Liquid Glass"
+              variant="liquidGlass"
+              onPress={() => {}}
+            />
           </View>
           <View style={styles.chipRow}>
             <Chip label="Small" size="sm" />
@@ -609,6 +615,55 @@ export default function HomeScreen() {
             <ProgressBar value={60} color="warning" />
             <Spacer size="xs" />
             <ProgressBar value={60} color="error" />
+          </View>
+          <View style={styles.progressItem}>
+            <Typography variant="caption" color="textTertiary">
+              Gradient Variants
+            </Typography>
+            <ProgressBar value={50} gradient color="primary" />
+            <Spacer size="xs" />
+            <ProgressBar value={60} gradient color="secondary" />
+            <Spacer size="xs" />
+            <ProgressBar value={70} gradient color="success" />
+            <Spacer size="xs" />
+            <ProgressBar value={80} gradient color="warning" />
+            <Spacer size="xs" />
+            <ProgressBar value={90} gradient color="error" />
+          </View>
+          <View style={styles.progressItem}>
+            <Typography variant="caption" color="textTertiary">
+              Gradient with Custom Colors
+            </Typography>
+            <ProgressBar
+              value={65}
+              gradient
+              gradientColors={["#FF6B6B", "#FFE66D"]}
+              showLabel
+            />
+            <Spacer size="xs" />
+            <ProgressBar
+              value={75}
+              gradient
+              gradientColors={["#4ECDC4", "#44A08D"]}
+              showLabel
+            />
+            <Spacer size="xs" />
+            <ProgressBar
+              value={85}
+              gradient
+              gradientColors={["#A8E6CF", "#FFD3B6"]}
+              showLabel
+            />
+          </View>
+          <View style={styles.progressItem}>
+            <Typography variant="caption" color="textTertiary">
+              Gradient Indeterminate
+            </Typography>
+            <ProgressBar variant="indeterminate" gradient color="primary" />
+            <Spacer size="xs" />
+            <ProgressBar variant="indeterminate" gradient color="secondary" />
+            <Spacer size="xs" />
+            <ProgressBar variant="indeterminate" gradient color="success" />
           </View>
         </View>
       </View>
@@ -802,6 +857,11 @@ export default function HomeScreen() {
           <Card variant="elevated" elevation={4} headerTitle="Elevated Card">
             <Typography variant="body" color="text">
               Elevated variant with shadow/elevation
+            </Typography>
+          </Card>
+          <Card variant="liquidGlass" headerTitle="Liquid Glass Card">
+            <Typography variant="body" color="text" textColor="#FFFFFF">
+              Liquid Glass variant with blur and gradient effects
             </Typography>
           </Card>
         </View>

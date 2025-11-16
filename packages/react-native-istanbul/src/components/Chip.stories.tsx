@@ -15,7 +15,7 @@ const meta: Meta<typeof Chip> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['filled', 'outlined'],
+      options: ['filled', 'outlined', 'liquidGlass'],
       description: 'Chip variant',
     },
     size: {
@@ -59,6 +59,7 @@ export const Variants: Story = {
         <View style={styles.row}>
           <Chip label="Filled" variant="filled" />
           <Chip label="Outlined" variant="outlined" />
+          <Chip label="Liquid Glass" variant="liquidGlass" onPress={() => {}} />
         </View>
       </View>
     );

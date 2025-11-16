@@ -16,7 +16,7 @@ const meta: Meta<typeof Card> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'outlined', 'elevated'],
+      options: ['default', 'outlined', 'elevated', 'liquidGlass'],
       description: 'Card variant style',
     },
     elevation: {
@@ -74,6 +74,13 @@ export const Variants: Story = {
           <Card variant="elevated" elevation={4} headerTitle="Elevated Card">
             <Typography variant="body" color="text">
               Elevated variant with shadow/elevation
+            </Typography>
+          </Card>
+        </View>
+        <View style={styles.item}>
+          <Card variant="liquidGlass" headerTitle="Liquid Glass Card">
+            <Typography variant="body" color="text" textColor="#FFFFFF">
+              Liquid Glass variant with blur and gradient effects
             </Typography>
           </Card>
         </View>

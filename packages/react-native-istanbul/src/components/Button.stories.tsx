@@ -15,7 +15,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'tertiary', 'surface', 'outline', 'ghost', 'danger'],
+      options: ['primary', 'secondary', 'tertiary', 'surface', 'outline', 'ghost', 'danger', 'liquidGlass'],
       description: 'Button variant style',
     },
     size: {
@@ -54,7 +54,7 @@ export const Default: Story = {
 // All variants
 export const Variants: Story = {
   render: () => {
-    const variants: Array<'primary' | 'secondary' | 'tertiary' | 'surface' | 'outline' | 'ghost' | 'danger'> = [
+    const variants: Array<'primary' | 'secondary' | 'tertiary' | 'surface' | 'outline' | 'ghost' | 'danger' | 'liquidGlass'> = [
       'primary',
       'secondary',
       'tertiary',
@@ -62,6 +62,7 @@ export const Variants: Story = {
       'outline',
       'ghost',
       'danger',
+      'liquidGlass',
     ];
 
     return (
@@ -175,7 +176,7 @@ export const WithIcons: Story = {
 // All combinations
 export const AllCombinations: Story = {
   render: () => {
-    const variants: Array<'primary' | 'secondary' | 'tertiary' | 'surface' | 'outline' | 'ghost' | 'danger'> = [
+    const variants: Array<'primary' | 'secondary' | 'tertiary' | 'surface' | 'outline' | 'ghost' | 'danger' | 'liquidGlass'> = [
       'primary',
       'secondary',
       'tertiary',
@@ -183,6 +184,7 @@ export const AllCombinations: Story = {
       'outline',
       'ghost',
       'danger',
+      'liquidGlass',
     ];
     const sizes: Array<'sm' | 'md' | 'lg'> = ['sm', 'md', 'lg'];
 

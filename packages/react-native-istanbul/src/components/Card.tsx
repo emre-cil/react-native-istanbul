@@ -9,12 +9,19 @@ import {
   type ImageSourcePropType,
   type TouchableOpacityProps,
 } from "react-native";
+import { BlurView } from "expo-blur";
+import { LinearGradient } from "expo-linear-gradient";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from "react-native-reanimated";
 import { useTheme } from "../providers/ThemeProvider";
 import { Typography } from "./Typography";
 import type { RadiusKey } from "../tokens/radius";
 import type { SpacingKey } from "../tokens/spacing";
 
-export type CardVariant = "default" | "outlined" | "elevated";
+export type CardVariant = "default" | "outlined" | "elevated" | "liquidGlass";
 
 export interface CardProps extends Omit<TouchableOpacityProps, "style"> {
   /**
@@ -105,6 +112,32 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   const { theme } = useTheme();
 
+  // Animation for liquidGlass variant
+  const scale = useSharedValue(1);
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ scale: scale.value }],
+    };
+  });
+
+  const handlePressIn = () => {
+    if (variant === "liquidGlass" && (clickable || onPress)) {
+      scale.value = withSpring(0.98, {
+        damping: 15,
+        stiffness: 150,
+      });
+    }
+  };
+
+  const handlePressOut = () => {
+    if (variant === "liquidGlass" && (clickable || onPress)) {
+      scale.value = withSpring(1, {
+        damping: 15,
+        stiffness: 150,
+      });
+    }
+  };
+
   // Variant styles
   const variantStyles: ViewStyle = {
     default: {
@@ -155,6 +188,22 @@ export const Card: React.FC<CardProps> = ({
         },
       }),
     },
+    liquidGlass: {
+      backgroundColor: "rgba(255,255,255,0.1)",
+      borderWidth: 1,
+      borderColor: "rgba(255,255,255,0.2)",
+      ...Platform.select({
+        ios: {
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.1,
+          shadowRadius: 8,
+        },
+        android: {
+          elevation: 4,
+        },
+      }),
+    },
   }[variant];
 
   const cardContent = (
@@ -163,11 +212,29 @@ export const Card: React.FC<CardProps> = ({
         styles.card,
         {
           borderRadius: theme.radius[radius],
+          overflow: variant === "liquidGlass" ? "hidden" : "visible",
         },
         variantStyles,
         style,
       ]}
     >
+      {/* BlurView and LinearGradient for liquidGlass */}
+      {variant === "liquidGlass" && (
+        <>
+          <BlurView
+            intensity={20}
+            tint="light"
+            style={StyleSheet.absoluteFill}
+          />
+          <LinearGradient
+            colors={["rgba(255,255,255,0.15)", "rgba(255,255,255,0.05)"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 0, y: 1 }}
+            style={StyleSheet.absoluteFill}
+          />
+        </>
+      )}
+
       {/* Image */}
       {image && (
         <Image
@@ -195,6 +262,7 @@ export const Card: React.FC<CardProps> = ({
                 ? theme.spacing.xs
                 : theme.spacing[padding],
             },
+            variant === "liquidGlass" && styles.liquidGlassContent,
           ]}
         >
           {header ? (
@@ -202,14 +270,23 @@ export const Card: React.FC<CardProps> = ({
           ) : (
             <View style={styles.headerContent}>
               {headerTitle && (
-                <Typography variant="h5" color="text">
+                <Typography
+                  variant="h5"
+                  color={variant === "liquidGlass" ? "text" : "text"}
+                  textColor={variant === "liquidGlass" ? "#FFFFFF" : undefined}
+                >
                   {headerTitle}
                 </Typography>
               )}
               {headerSubtitle && (
                 <Typography
                   variant="bodySmall"
-                  color="textSecondary"
+                  color={
+                    variant === "liquidGlass" ? "textSecondary" : "textSecondary"
+                  }
+                  textColor={
+                    variant === "liquidGlass" ? "rgba(255,255,255,0.8)" : undefined
+                  }
                   style={styles.subtitle}
                 >
                   {headerSubtitle}
@@ -221,7 +298,13 @@ export const Card: React.FC<CardProps> = ({
       )}
 
       {/* Body */}
-      <View style={[styles.body, { padding: theme.spacing[padding] }]}>
+      <View
+        style={[
+          styles.body,
+          { padding: theme.spacing[padding] },
+          variant === "liquidGlass" && styles.liquidGlassContent,
+        ]}
+      >
         {children}
       </View>
 
@@ -234,8 +317,12 @@ export const Card: React.FC<CardProps> = ({
               padding: theme.spacing[padding],
               paddingTop: theme.spacing.sm,
               borderTopWidth: footer || footerActions ? 1 : 0,
-              borderTopColor: theme.colors.borderLight,
+              borderTopColor:
+                variant === "liquidGlass"
+                  ? "rgba(255,255,255,0.1)"
+                  : theme.colors.borderLight,
             },
+            variant === "liquidGlass" && styles.liquidGlassContent,
           ]}
         >
           {footer}
@@ -248,6 +335,23 @@ export const Card: React.FC<CardProps> = ({
   );
 
   if (clickable || onPress) {
+    if (variant === "liquidGlass") {
+      return (
+        <Animated.View style={animatedStyle}>
+          <TouchableOpacity
+            {...props}
+            activeOpacity={1}
+            onPress={onPress}
+            onPressIn={handlePressIn}
+            onPressOut={handlePressOut}
+            disabled={!clickable && !onPress}
+          >
+            {cardContent}
+          </TouchableOpacity>
+        </Animated.View>
+      );
+    }
+
     return (
       <TouchableOpacity
         {...props}
@@ -290,5 +394,9 @@ const styles = StyleSheet.create({
   footerActions: {
     flexDirection: "row",
     gap: 8,
+  },
+  liquidGlassContent: {
+    position: "relative",
+    zIndex: 1,
   },
 });

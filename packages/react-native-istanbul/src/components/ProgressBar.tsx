@@ -1,5 +1,15 @@
-import React, { useEffect, useRef } from "react";
-import { View, StyleSheet, Animated, type ViewStyle } from "react-native";
+import React, { useEffect } from "react";
+import { View, StyleSheet, type ViewStyle } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+  withRepeat,
+  withSequence,
+  interpolate,
+  Easing,
+} from "react-native-reanimated";
 import { useTheme } from "../providers/ThemeProvider";
 import { Typography } from "./Typography";
 import type { ColorKey } from "../tokens/colors";
@@ -37,6 +47,16 @@ export interface ProgressBarProps {
    */
   customProgressColor?: string;
   /**
+   * Use linear gradient for progress bar
+   * @default false
+   */
+  gradient?: boolean;
+  /**
+   * Gradient colors (only used when gradient is true)
+   * @default Based on color prop
+   */
+  gradientColors?: string[];
+  /**
    * Show percentage label
    * @default false
    */
@@ -54,6 +74,8 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   color = "primary",
   customBackgroundColor,
   customProgressColor,
+  gradient = false,
+  gradientColors,
   showLabel = false,
   style,
 }) => {
@@ -76,29 +98,96 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   // Clamp value between 0 and 100
   const clampedValue = Math.max(0, Math.min(100, value));
 
-  // Animation for indeterminate variant
-  const animatedValue = useRef(new Animated.Value(0)).current;
+  // Reanimated shared values
+  const progressWidth = useSharedValue(clampedValue);
+  const indeterminateProgress = useSharedValue(0);
 
+  // Update progress width with animation when value changes
+  useEffect(() => {
+    if (variant === "determinate") {
+      progressWidth.value = withTiming(clampedValue, {
+        duration: 300,
+        easing: Easing.out(Easing.ease),
+      });
+    }
+  }, [clampedValue, variant, progressWidth]);
+
+  // Indeterminate animation
   useEffect(() => {
     if (variant === "indeterminate") {
-      const animation = Animated.loop(
-        Animated.sequence([
-          Animated.timing(animatedValue, {
-            toValue: 1,
+      indeterminateProgress.value = withRepeat(
+        withSequence(
+          withTiming(1, {
             duration: 1000,
-            useNativeDriver: false,
+            easing: Easing.inOut(Easing.ease),
           }),
-          Animated.timing(animatedValue, {
-            toValue: 0,
+          withTiming(0, {
             duration: 1000,
-            useNativeDriver: false,
-          }),
-        ])
+            easing: Easing.inOut(Easing.ease),
+          })
+        ),
+        -1,
+        false
       );
-      animation.start();
-      return () => animation.stop();
+    } else {
+      indeterminateProgress.value = 0;
     }
-  }, [variant, animatedValue]);
+  }, [variant, indeterminateProgress]);
+
+  // Animated styles
+  const determinateStyle = useAnimatedStyle(() => {
+    return {
+      width: `${progressWidth.value}%`,
+    };
+  });
+
+  const indeterminateStyle = useAnimatedStyle(() => {
+    return {
+      width: `${interpolate(indeterminateProgress.value, [0, 1], [0, 100])}%`,
+    };
+  });
+
+  // Gradient colors based on color prop
+  const getGradientColors = (): string[] => {
+    if (gradientColors) return gradientColors;
+
+    const colorMap: Record<string, string[]> = {
+      primary: ["#1976D2", "#42A5F5"],
+      secondary: ["#7B1FA2", "#BA68C8"],
+      tertiary: ["#00796B", "#26A69A"],
+      success: ["#388E3C", "#66BB6A"],
+      warning: ["#F57C00", "#FFA726"],
+      error: ["#D32F2F", "#EF5350"],
+    };
+
+    return colorMap[color] || colorMap.primary;
+  };
+
+  const progressBarContent = (
+    <Animated.View
+      style={[
+        styles.progress,
+        {
+          height: config.height,
+          borderRadius: config.height / 2,
+        },
+        variant === "determinate" ? determinateStyle : indeterminateStyle,
+      ]}
+    >
+      {gradient ? (
+        <LinearGradient
+          colors={getGradientColors() as [string, string, ...string[]]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={StyleSheet.absoluteFill}
+        />
+      ) : (
+        <View
+          style={[StyleSheet.absoluteFill, { backgroundColor: progressColor }]}
+        />
+      )}
+    </Animated.View>
+  );
 
   return (
     <View style={[styles.container, style]}>
@@ -120,37 +209,11 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
             height: config.height,
             borderRadius: config.height / 2,
             backgroundColor,
+            overflow: "hidden",
           },
         ]}
       >
-        {variant === "determinate" ? (
-          <View
-            style={[
-              styles.progress,
-              {
-                width: `${clampedValue}%`,
-                height: config.height,
-                borderRadius: config.height / 2,
-                backgroundColor: progressColor,
-              },
-            ]}
-          />
-        ) : (
-          <Animated.View
-            style={[
-              styles.progress,
-              {
-                width: animatedValue.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: ["0%", "100%"],
-                }),
-                height: config.height,
-                borderRadius: config.height / 2,
-                backgroundColor: progressColor,
-              },
-            ]}
-          />
-        )}
+        {progressBarContent}
       </View>
     </View>
   );

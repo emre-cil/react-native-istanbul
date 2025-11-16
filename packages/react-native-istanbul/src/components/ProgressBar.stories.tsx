@@ -35,6 +35,10 @@ const meta: Meta<typeof ProgressBar> = {
       control: 'boolean',
       description: 'Show percentage label',
     },
+    gradient: {
+      control: 'boolean',
+      description: 'Use linear gradient',
+    },
   },
 };
 
@@ -148,6 +152,99 @@ export const Animated: Story = {
         >
           Reset
         </Button>
+      </View>
+    );
+  },
+};
+
+// Gradient variants
+export const Gradient: Story = {
+  render: () => {
+    return (
+      <View style={styles.container}>
+        <View style={styles.item}>
+          <ProgressBar value={50} gradient color="primary" />
+        </View>
+        <View style={styles.item}>
+          <ProgressBar value={60} gradient color="secondary" />
+        </View>
+        <View style={styles.item}>
+          <ProgressBar value={70} gradient color="success" />
+        </View>
+        <View style={styles.item}>
+          <ProgressBar value={80} gradient color="warning" />
+        </View>
+        <View style={styles.item}>
+          <ProgressBar value={90} gradient color="error" />
+        </View>
+      </View>
+    );
+  },
+};
+
+// Gradient with custom colors
+export const GradientCustom: Story = {
+  render: () => {
+    return (
+      <View style={styles.container}>
+        <View style={styles.item}>
+          <ProgressBar
+            value={65}
+            gradient
+            gradientColors={['#FF6B6B', '#FFE66D']}
+            showLabel
+          />
+        </View>
+        <View style={styles.item}>
+          <ProgressBar
+            value={75}
+            gradient
+            gradientColors={['#4ECDC4', '#44A08D']}
+            showLabel
+          />
+        </View>
+        <View style={styles.item}>
+          <ProgressBar
+            value={85}
+            gradient
+            gradientColors={['#A8E6CF', '#FFD3B6']}
+            showLabel
+          />
+        </View>
+      </View>
+    );
+  },
+};
+
+// Gradient indeterminate
+export const GradientIndeterminate: Story = {
+  render: () => {
+    return (
+      <View style={styles.container}>
+        <View style={styles.item}>
+          <ProgressBar variant="indeterminate" gradient color="primary" />
+        </View>
+        <View style={styles.item}>
+          <ProgressBar variant="indeterminate" gradient color="secondary" />
+        </View>
+        <View style={styles.item}>
+          <ProgressBar variant="indeterminate" gradient color="success" />
+        </View>
+      </View>
+    );
+  },
+};
+
+// All gradient sizes
+export const GradientSizes: Story = {
+  render: () => {
+    return (
+      <View style={styles.container}>
+        {(['sm', 'md', 'lg'] as const).map((size) => (
+          <View key={size} style={styles.item}>
+            <ProgressBar value={60} gradient size={size} />
+          </View>
+        ))}
       </View>
     );
   },
