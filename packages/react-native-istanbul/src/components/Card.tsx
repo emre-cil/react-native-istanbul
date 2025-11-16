@@ -189,14 +189,18 @@ export const Card: React.FC<CardProps> = ({
       }),
     },
     liquidGlass: {
-      backgroundColor: "rgba(255,255,255,0.1)",
+      backgroundColor: theme.isDark
+        ? theme.colors.glassBgDark
+        : theme.colors.glassBgLight,
       borderWidth: 1,
-      borderColor: "rgba(255,255,255,0.2)",
+      borderColor: theme.isDark
+        ? theme.colors.glassBorderDark
+        : theme.colors.glassBorderLight,
       ...Platform.select({
         ios: {
-          shadowColor: "#000",
+          shadowColor: theme.colors.text,
           shadowOffset: { width: 0, height: 4 },
-          shadowOpacity: 0.1,
+          shadowOpacity: theme.isDark ? 0.1 : 0.08,
           shadowRadius: 8,
         },
         android: {
@@ -223,11 +227,21 @@ export const Card: React.FC<CardProps> = ({
         <>
           <BlurView
             intensity={20}
-            tint="light"
+            tint={theme.isDark ? "dark" : "light"}
             style={StyleSheet.absoluteFill}
           />
           <LinearGradient
-            colors={["rgba(255,255,255,0.15)", "rgba(255,255,255,0.05)"]}
+            colors={
+              theme.isDark
+                ? [
+                    theme.colors.glassGradientDarkStart,
+                    theme.colors.glassGradientDarkEnd,
+                  ]
+                : [
+                    theme.colors.glassGradientLightStart,
+                    theme.colors.glassGradientLightEnd,
+                  ]
+            }
             start={{ x: 0, y: 0 }}
             end={{ x: 0, y: 1 }}
             style={StyleSheet.absoluteFill}
@@ -272,8 +286,10 @@ export const Card: React.FC<CardProps> = ({
               {headerTitle && (
                 <Typography
                   variant="h5"
-                  color={variant === "liquidGlass" ? "text" : "text"}
-                  textColor={variant === "liquidGlass" ? "#FFFFFF" : undefined}
+                  color="text"
+                  textColor={
+                    variant === "liquidGlass" ? theme.colors.text : undefined
+                  }
                 >
                   {headerTitle}
                 </Typography>
@@ -281,11 +297,13 @@ export const Card: React.FC<CardProps> = ({
               {headerSubtitle && (
                 <Typography
                   variant="bodySmall"
-                  color={
-                    variant === "liquidGlass" ? "textSecondary" : "textSecondary"
-                  }
+                  color="textSecondary"
                   textColor={
-                    variant === "liquidGlass" ? "rgba(255,255,255,0.8)" : undefined
+                    variant === "liquidGlass"
+                      ? theme.isDark
+                        ? theme.colors.glassTextSecondaryDark
+                        : theme.colors.glassTextSecondaryLight
+                      : undefined
                   }
                   style={styles.subtitle}
                 >
@@ -319,7 +337,9 @@ export const Card: React.FC<CardProps> = ({
               borderTopWidth: footer || footerActions ? 1 : 0,
               borderTopColor:
                 variant === "liquidGlass"
-                  ? "rgba(255,255,255,0.1)"
+                  ? theme.isDark
+                    ? theme.colors.glassBorderTopDark
+                    : theme.colors.glassBorderTopLight
                   : theme.colors.borderLight,
             },
             variant === "liquidGlass" && styles.liquidGlassContent,

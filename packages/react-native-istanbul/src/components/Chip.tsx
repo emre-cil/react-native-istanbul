@@ -142,18 +142,26 @@ export const Chip: React.FC<ChipProps> = ({
         : theme.colors[color],
     },
     liquidGlass: {
-      backgroundColor: disabled
-        ? "rgba(255,255,255,0.05)"
-        : "rgba(255,255,255,0.1)",
+      backgroundColor: theme.isDark
+        ? disabled
+          ? theme.colors.glassBgDarkDisabled
+          : theme.colors.glassBgDark
+        : disabled
+          ? theme.colors.glassBgLightDisabled
+          : theme.colors.glassBgLight,
       borderWidth: 1,
-      borderColor: disabled
-        ? "rgba(255,255,255,0.1)"
-        : "rgba(255,255,255,0.2)",
+      borderColor: theme.isDark
+        ? disabled
+          ? theme.colors.glassBorderDarkDisabled
+          : theme.colors.glassBorderDark
+        : disabled
+          ? theme.colors.glassBorderLightDisabled
+          : theme.colors.glassBorderLight,
       ...Platform.select({
         ios: {
-          shadowColor: "#000",
+          shadowColor: theme.colors.text,
           shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.1,
+          shadowOpacity: theme.isDark ? 0.1 : 0.08,
           shadowRadius: 4,
         },
         android: {
@@ -165,9 +173,9 @@ export const Chip: React.FC<ChipProps> = ({
 
   const textColor =
     variant === "liquidGlass"
-      ? "#FFFFFF"
+      ? theme.colors.text
       : variant === "filled"
-        ? "#FFFFFF"
+        ? theme.colors.surface
         : disabled
           ? theme.colors.textDisabled
           : theme.colors[color];
@@ -197,14 +205,30 @@ export const Chip: React.FC<ChipProps> = ({
         <>
           <BlurView
             intensity={disabled ? 10 : 20}
-            tint="light"
+            tint={theme.isDark ? "dark" : "light"}
             style={StyleSheet.absoluteFill}
           />
           <LinearGradient
             colors={
-              disabled
-                ? ["rgba(255,255,255,0.05)", "rgba(255,255,255,0.02)"]
-                : ["rgba(255,255,255,0.15)", "rgba(255,255,255,0.05)"]
+              theme.isDark
+                ? disabled
+                  ? [
+                      theme.colors.glassGradientDarkStartDisabled,
+                      theme.colors.glassGradientDarkEndDisabled,
+                    ]
+                  : [
+                      theme.colors.glassGradientDarkStart,
+                      theme.colors.glassGradientDarkEnd,
+                    ]
+                : disabled
+                  ? [
+                      theme.colors.glassGradientLightStartDisabled,
+                      theme.colors.glassGradientLightEndDisabled,
+                    ]
+                  : [
+                      theme.colors.glassGradientLightStart,
+                      theme.colors.glassGradientLightEnd,
+                    ]
             }
             start={{ x: 0, y: 0 }}
             end={{ x: 0, y: 1 }}

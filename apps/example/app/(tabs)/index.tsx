@@ -860,7 +860,7 @@ export default function HomeScreen() {
             </Typography>
           </Card>
           <Card variant="liquidGlass" headerTitle="Liquid Glass Card">
-            <Typography variant="body" color="text" textColor="#FFFFFF">
+            <Typography variant="body" color="text">
               Liquid Glass variant with blur and gradient effects
             </Typography>
           </Card>

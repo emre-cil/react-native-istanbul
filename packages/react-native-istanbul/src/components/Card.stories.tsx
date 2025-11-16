@@ -54,6 +54,7 @@ export const Default: Story = {
 // Variants
 export const Variants: Story = {
   render: () => {
+    const { theme } = useTheme();
     return (
       <ScrollView style={styles.container}>
         <View style={styles.item}>
@@ -79,7 +80,7 @@ export const Variants: Story = {
         </View>
         <View style={styles.item}>
           <Card variant="liquidGlass" headerTitle="Liquid Glass Card">
-            <Typography variant="body" color="text" textColor="#FFFFFF">
+            <Typography variant="body" color="text">
               Liquid Glass variant with blur and gradient effects
             </Typography>
           </Card>

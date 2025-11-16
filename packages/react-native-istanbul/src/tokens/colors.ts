@@ -65,6 +65,29 @@ export const lightColors = {
 
   // Overlay
   overlay: "rgba(0, 0, 0, 0.4)",
+
+  // Glassmorphism colors for liquid glass effect (light mode)
+  glassBgLight: "rgba(33, 33, 33, 0.06)", // text with 6% opacity
+  glassBgLightDisabled: "rgba(33, 33, 33, 0.03)", // text with 3% opacity
+  glassBorderLight: "rgba(33, 33, 33, 0.12)", // text with 12% opacity
+  glassBorderLightDisabled: "rgba(33, 33, 33, 0.08)", // text with 8% opacity
+  glassGradientLightStart: "rgba(255, 255, 255, 0.6)", // surface with 60% opacity
+  glassGradientLightEnd: "rgba(255, 255, 255, 0.3)", // surface with 30% opacity
+  glassGradientLightStartDisabled: "rgba(255, 255, 255, 0.4)", // surface with 40% opacity
+  glassGradientLightEndDisabled: "rgba(255, 255, 255, 0.2)", // surface with 20% opacity
+  glassTextSecondaryLight: "rgba(33, 33, 33, 0.7)", // text with 70% opacity
+  glassBorderTopLight: "rgba(33, 33, 33, 0.08)", // text with 8% opacity
+  // Dark mode glassmorphism (not used in light mode but required for type consistency)
+  glassBgDark: "rgba(255, 255, 255, 0.1)",
+  glassBgDarkDisabled: "rgba(255, 255, 255, 0.05)",
+  glassBorderDark: "rgba(255, 255, 255, 0.2)",
+  glassBorderDarkDisabled: "rgba(255, 255, 255, 0.1)",
+  glassGradientDarkStart: "rgba(255, 255, 255, 0.15)",
+  glassGradientDarkEnd: "rgba(255, 255, 255, 0.05)",
+  glassGradientDarkStartDisabled: "rgba(255, 255, 255, 0.05)",
+  glassGradientDarkEndDisabled: "rgba(255, 255, 255, 0.02)",
+  glassTextSecondaryDark: "rgba(255, 255, 255, 0.8)",
+  glassBorderTopDark: "rgba(255, 255, 255, 0.1)",
 } as const;
 
 export const darkColors = {
@@ -127,6 +150,29 @@ export const darkColors = {
 
   // Overlay
   overlay: "rgba(0, 0, 0, 0.6)",
+
+  // Glassmorphism colors for liquid glass effect (dark mode)
+  glassBgDark: "rgba(255, 255, 255, 0.1)", // surface with 10% opacity
+  glassBgDarkDisabled: "rgba(255, 255, 255, 0.05)", // surface with 5% opacity
+  glassBorderDark: "rgba(255, 255, 255, 0.2)", // surface with 20% opacity
+  glassBorderDarkDisabled: "rgba(255, 255, 255, 0.1)", // surface with 10% opacity
+  glassGradientDarkStart: "rgba(255, 255, 255, 0.15)", // surface with 15% opacity
+  glassGradientDarkEnd: "rgba(255, 255, 255, 0.05)", // surface with 5% opacity
+  glassGradientDarkStartDisabled: "rgba(255, 255, 255, 0.05)", // surface with 5% opacity
+  glassGradientDarkEndDisabled: "rgba(255, 255, 255, 0.02)", // surface with 2% opacity
+  glassTextSecondaryDark: "rgba(255, 255, 255, 0.8)", // text with 80% opacity
+  glassBorderTopDark: "rgba(255, 255, 255, 0.1)", // surface with 10% opacity
+  // Light mode glassmorphism (not used in dark mode but required for type consistency)
+  glassBgLight: "rgba(33, 33, 33, 0.06)",
+  glassBgLightDisabled: "rgba(33, 33, 33, 0.03)",
+  glassBorderLight: "rgba(33, 33, 33, 0.12)",
+  glassBorderLightDisabled: "rgba(33, 33, 33, 0.08)",
+  glassGradientLightStart: "rgba(255, 255, 255, 0.6)",
+  glassGradientLightEnd: "rgba(255, 255, 255, 0.3)",
+  glassGradientLightStartDisabled: "rgba(255, 255, 255, 0.4)",
+  glassGradientLightEndDisabled: "rgba(255, 255, 255, 0.2)",
+  glassTextSecondaryLight: "rgba(33, 33, 33, 0.7)",
+  glassBorderTopLight: "rgba(33, 33, 33, 0.08)",
 } as const;
 
 // ColorTokens artık her iki tema için de çalışacak yapıda
@@ -164,6 +210,27 @@ export type ColorTokens = {
   gray800: string;
   gray900: string;
   overlay: string;
+  // Glassmorphism colors
+  glassBgLight: string;
+  glassBgLightDisabled: string;
+  glassBorderLight: string;
+  glassBorderLightDisabled: string;
+  glassGradientLightStart: string;
+  glassGradientLightEnd: string;
+  glassGradientLightStartDisabled: string;
+  glassGradientLightEndDisabled: string;
+  glassTextSecondaryLight: string;
+  glassBgDark: string;
+  glassBgDarkDisabled: string;
+  glassBorderDark: string;
+  glassBorderDarkDisabled: string;
+  glassGradientDarkStart: string;
+  glassGradientDarkEnd: string;
+  glassGradientDarkStartDisabled: string;
+  glassGradientDarkEndDisabled: string;
+  glassTextSecondaryDark: string;
+  glassBorderTopDark: string;
+  glassBorderTopLight: string;
 };
 
 export type ColorKey = keyof ColorTokens;
