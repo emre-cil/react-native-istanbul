@@ -47,37 +47,49 @@ export const Default: Story = {
   },
 };
 
-// Variants
+// Variants - Interactive (shows all variants)
 export const Variants: Story = {
-  render: () => {
+  args: {
+    variant: 'number',
+    content: 5,
+    size: 'md',
+    color: 'primary',
+  },
+  render: (args) => {
     return (
       <View style={styles.container}>
         <View style={styles.item}>
           <Typography variant="caption" color="textTertiary">
             Dot:
           </Typography>
-          <Badge variant="dot" />
+          <Badge variant="dot" {...args} />
         </View>
         <View style={styles.item}>
           <Typography variant="caption" color="textTertiary">
             Number:
           </Typography>
-          <Badge variant="number" content={5} />
+          <Badge variant="number" content={args.content} {...args} />
         </View>
         <View style={styles.item}>
           <Typography variant="caption" color="textTertiary">
             Text:
           </Typography>
-          <Badge variant="text" content="New" />
+          <Badge variant="text" content="New" {...args} />
         </View>
       </View>
     );
   },
 };
 
-// Sizes
+// Sizes - Interactive (shows all sizes)
 export const Sizes: Story = {
-  render: () => {
+  args: {
+    variant: 'number',
+    content: 5,
+    size: 'sm',
+    color: 'primary',
+  },
+  render: (args) => {
     return (
       <View style={styles.container}>
         {(['sm', 'md', 'lg'] as const).map((size) => (
@@ -85,7 +97,7 @@ export const Sizes: Story = {
             <Typography variant="caption" color="textTertiary">
               {size}:
             </Typography>
-            <Badge variant="number" content={5} size={size} />
+            <Badge {...args} variant="number" content={args.content} size={size} />
           </View>
         ))}
       </View>
@@ -93,9 +105,15 @@ export const Sizes: Story = {
   },
 };
 
-// Colors
+// Colors - Interactive (shows all colors)
 export const Colors: Story = {
-  render: () => {
+  args: {
+    variant: 'number',
+    content: 5,
+    size: 'md',
+    color: 'primary',
+  },
+  render: (args) => {
     const colors = ['primary', 'secondary', 'error', 'warning', 'success'] as const;
     return (
       <View style={styles.container}>
@@ -104,7 +122,7 @@ export const Colors: Story = {
             <Typography variant="caption" color="textTertiary">
               {color}:
             </Typography>
-            <Badge variant="number" content={5} color={color} />
+            <Badge {...args} variant="number" content={args.content} color={color} />
           </View>
         ))}
       </View>
@@ -112,67 +130,46 @@ export const Colors: Story = {
   },
 };
 
-// With max count
+// With max count - Interactive
 export const MaxCount: Story = {
-  render: () => {
-    return (
-      <View style={styles.container}>
-        <View style={styles.item}>
-          <Typography variant="caption" color="textTertiary">
-            99 (max):
-          </Typography>
-          <Badge variant="number" content={99} maxCount={99} />
-        </View>
-        <View style={styles.item}>
-          <Typography variant="caption" color="textTertiary">
-            150 (exceeds max):
-          </Typography>
-          <Badge variant="number" content={150} maxCount={99} />
-        </View>
-      </View>
-    );
+  args: {
+    variant: 'number',
+    content: 99,
+    size: 'md',
+    color: 'primary',
+    maxCount: 99,
   },
 };
 
-// As overlay
+// As overlay - Interactive
 export const AsOverlay: Story = {
-  render: () => {
+  args: {
+    variant: 'number',
+    content: 5,
+    size: 'md',
+    color: 'primary',
+  },
+  render: (args) => {
     return (
       <View style={styles.container}>
         <View style={styles.overlayContainer}>
-          <Badge content={5} position="top-right">
+          <Badge {...args} position="top-right">
             <Button variant="primary">Notifications</Button>
           </Badge>
         </View>
-        <View style={styles.overlayContainer}>
-          <Badge variant="dot" position="top-right">
-            <Button variant="secondary">Messages</Button>
-          </Badge>
-        </View>
       </View>
     );
   },
 };
 
-// Show zero
+// Show zero - Interactive
 export const ShowZero: Story = {
-  render: () => {
-    return (
-      <View style={styles.container}>
-        <View style={styles.item}>
-          <Typography variant="caption" color="textTertiary">
-            showZero=false (default):
-          </Typography>
-          <Badge variant="number" content={0} />
-        </View>
-        <View style={styles.item}>
-          <Typography variant="caption" color="textTertiary">
-            showZero=true:
-          </Typography>
-          <Badge variant="number" content={0} showZero />
-        </View>
-      </View>
-    );
+  args: {
+    variant: 'number',
+    content: 0,
+    size: 'md',
+    color: 'primary',
+    showZero: false,
   },
 };
 

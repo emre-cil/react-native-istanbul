@@ -1,7 +1,8 @@
-// Learn more https://docs.expo.dev/guides/customizing-metro
+// Learn more https://docs.expo.io/guides/customizing-metro
 const { getDefaultConfig } = require("expo/metro-config");
 const path = require("path");
 
+/** @type {import('expo/metro-config').MetroConfig} */
 const config = getDefaultConfig(__dirname);
 
 const projectRoot = __dirname;
@@ -22,4 +23,24 @@ config.resolver.extraNodeModules = {
   "react-native-istanbul": path.resolve(packageRoot, "src"),
 };
 
-module.exports = config;
+// Only apply Storybook wrapper if we're in Storybook mode
+// This prevents Metro from breaking when Storybook packages have version mismatches
+if (
+  process.env.STORYBOOK === "true" ||
+  process.env.EXPO_PUBLIC_STORYBOOK === "true"
+) {
+  try {
+    const {
+      withStorybook,
+    } = require("@storybook/react-native/metro/withStorybook");
+    module.exports = withStorybook(config);
+  } catch (error) {
+    console.warn(
+      "Storybook Metro config failed to load, using default config:",
+      error.message
+    );
+    module.exports = config;
+  }
+} else {
+  module.exports = config;
+}

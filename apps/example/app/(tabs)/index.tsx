@@ -1,4 +1,5 @@
 import { StyleSheet, View, ScrollView } from "react-native";
+import { useRouter } from "expo-router";
 import {
   Button,
   Typography,
@@ -47,6 +48,7 @@ const typographyVariants: TypographyVariant[] = [
 
 export default function HomeScreen() {
   const { theme, toggleTheme, themeMode } = useTheme();
+  const router = useRouter();
 
   // TextInput states
   const [textInput1, setTextInput1] = useState("");
@@ -97,6 +99,18 @@ export default function HomeScreen() {
         <Typography variant="h4" color="textSecondary">
           UI Component Library
         </Typography>
+        {__DEV__ && (
+          <Button
+            variant="outline"
+            size="sm"
+            onPress={() => {
+              router.push("/storybook" as any);
+            }}
+            style={styles.storybookLink}
+          >
+            Open Storybook
+          </Button>
+        )}
       </View>
 
       <View style={styles.section}>
@@ -1373,6 +1387,9 @@ const styles = StyleSheet.create({
   header: {
     gap: 8,
     marginTop: 40,
+  },
+  storybookLink: {
+    marginTop: 12,
   },
   section: {
     gap: 12,

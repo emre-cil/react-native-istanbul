@@ -1,39 +1,48 @@
-import type { Meta, StoryObj } from '@storybook/react-native';
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { Button } from './Button';
-import { useTheme } from '../providers/ThemeProvider';
+import type { Meta, StoryObj } from "@storybook/react-native";
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { Button } from "./Button";
+import { useTheme } from "../providers/ThemeProvider";
 
 const meta: Meta<typeof Button> = {
-  title: 'Components/Button',
+  title: "Components/Button",
   component: Button,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     variant: {
-      control: 'select',
-      options: ['primary', 'secondary', 'tertiary', 'surface', 'outline', 'ghost', 'danger', 'liquidGlass'],
-      description: 'Button variant style',
+      control: "select",
+      options: [
+        "primary",
+        "secondary",
+        "tertiary",
+        "surface",
+        "outline",
+        "ghost",
+        "danger",
+        "liquidGlass",
+      ],
+      description: "Button variant style",
     },
     size: {
-      control: 'select',
-      options: ['sm', 'md', 'lg'],
-      description: 'Button size',
+      control: "select",
+      options: ["sm", "md", "lg"],
+      description: "Button size",
     },
     isLoading: {
-      control: 'boolean',
-      description: 'Show loading spinner',
+      control: "boolean",
+      description: "Show loading spinner",
     },
     isDisabled: {
-      control: 'boolean',
-      description: 'Disable button interaction',
+      control: "boolean",
+      description: "Disable button interaction",
     },
     children: {
-      control: 'text',
-      description: 'Button text content',
+      control: "text",
+      description: "Button text content",
     },
   },
 };
@@ -44,32 +53,51 @@ type Story = StoryObj<typeof Button>;
 // Default story
 export const Default: Story = {
   args: {
-    children: 'Button',
-    variant: 'primary',
-    size: 'md',
-    onPress: () => alert('Button pressed'),
+    children: "Button",
+    variant: "primary",
+    size: "md",
+    onPress: () => alert("Button pressed"),
   },
 };
 
-// All variants
+// All variants - Interactive (shows all variants, but you can control the displayed one)
 export const Variants: Story = {
-  render: () => {
-    const variants: Array<'primary' | 'secondary' | 'tertiary' | 'surface' | 'outline' | 'ghost' | 'danger' | 'liquidGlass'> = [
-      'primary',
-      'secondary',
-      'tertiary',
-      'surface',
-      'outline',
-      'ghost',
-      'danger',
-      'liquidGlass',
+  args: {
+    children: "Button",
+    variant: "primary",
+    size: "md",
+    onPress: () => alert("Button pressed"),
+  },
+  render: (args) => {
+    const variants: Array<
+      | "primary"
+      | "secondary"
+      | "tertiary"
+      | "surface"
+      | "outline"
+      | "ghost"
+      | "danger"
+      | "liquidGlass"
+    > = [
+      "primary",
+      "secondary",
+      "tertiary",
+      "surface",
+      "outline",
+      "ghost",
+      "danger",
+      "liquidGlass",
     ];
 
     return (
       <View style={styles.container}>
         {variants.map((variant) => (
           <View key={variant} style={styles.buttonWrapper}>
-            <Button variant={variant} onPress={() => {}}>
+            <Button
+              {...args}
+              variant={variant}
+              onPress={() => alert(`${variant} pressed`)}
+            >
               {variant}
             </Button>
           </View>
@@ -79,16 +107,26 @@ export const Variants: Story = {
   },
 };
 
-// All sizes
+// All sizes - Interactive (shows all sizes, but you can control the displayed one)
 export const Sizes: Story = {
-  render: () => {
-    const sizes: Array<'sm' | 'md' | 'lg'> = ['sm', 'md', 'lg'];
+  args: {
+    children: "Button",
+    variant: "primary",
+    size: "sm",
+    onPress: () => alert("Button pressed"),
+  },
+  render: (args) => {
+    const sizes: Array<"sm" | "md" | "lg"> = ["sm", "md", "lg"];
 
     return (
       <View style={styles.container}>
         {sizes.map((size) => (
           <View key={size} style={styles.buttonWrapper}>
-            <Button variant="primary" size={size} onPress={() => {}}>
+            <Button
+              {...args}
+              size={size}
+              onPress={() => alert(`${size} pressed`)}
+            >
               {size.toUpperCase()}
             </Button>
           </View>
@@ -98,28 +136,36 @@ export const Sizes: Story = {
   },
 };
 
-// States
+// States - Interactive (shows all states, but you can control them)
 export const States: Story = {
-  render: () => {
+  args: {
+    children: "Button",
+    variant: "primary",
+    size: "md",
+    isLoading: false,
+    isDisabled: false,
+    onPress: () => alert("Button pressed"),
+  },
+  render: (args) => {
     return (
       <View style={styles.container}>
         <View style={styles.buttonWrapper}>
-          <Button variant="primary" onPress={() => {}}>
+          <Button {...args} isLoading={false} isDisabled={false}>
             Normal
           </Button>
         </View>
         <View style={styles.buttonWrapper}>
-          <Button variant="primary" isDisabled onPress={() => {}}>
+          <Button {...args} isDisabled>
             Disabled
           </Button>
         </View>
         <View style={styles.buttonWrapper}>
-          <Button variant="primary" isLoading onPress={() => {}}>
+          <Button {...args} isLoading>
             Loading
           </Button>
         </View>
         <View style={styles.buttonWrapper}>
-          <Button variant="outline" isDisabled onPress={() => {}}>
+          <Button {...args} variant="outline" isDisabled>
             Disabled Outline
           </Button>
         </View>
@@ -128,83 +174,93 @@ export const States: Story = {
   },
 };
 
-// With icons
+// With icons - Interactive (Note: Icons are not controllable via args, this is a demo)
 export const WithIcons: Story = {
-  render: () => {
+  args: {
+    children: "Button with Icon",
+    variant: "primary",
+    size: "md",
+    onPress: () => alert("Button pressed"),
+  },
+  render: (args) => {
     const { theme } = useTheme();
-
     return (
       <View style={styles.container}>
         <View style={styles.buttonWrapper}>
           <Button
-            variant="primary"
-            leftIcon={<Ionicons name="add" size={20} color="#FFFFFF" />}
-            onPress={() => {}}>
-            Add Item
-          </Button>
-        </View>
-        <View style={styles.buttonWrapper}>
-          <Button
-            variant="secondary"
-            rightIcon={<Ionicons name="arrow-forward" size={20} color="#FFFFFF" />}
-            onPress={() => {}}>
-            Continue
-          </Button>
-        </View>
-        <View style={styles.buttonWrapper}>
-          <Button
-            variant="outline"
-            leftIcon={<Ionicons name="heart" size={20} color={theme.colors.primary} />}
-            rightIcon={<Ionicons name="chevron-forward" size={20} color={theme.colors.primary} />}
-            onPress={() => {}}>
-            Like
-          </Button>
-        </View>
-        <View style={styles.buttonWrapper}>
-          <Button
-            variant="ghost"
-            leftIcon={<Ionicons name="settings" size={20} color={theme.colors.primary} />}
-            onPress={() => {}}>
-            Settings
-          </Button>
+            {...args}
+            leftIcon={
+              <Ionicons
+                name="add"
+                size={20}
+                color={
+                  args.variant === "outline" || args.variant === "ghost"
+                    ? theme.colors.primary
+                    : "#FFFFFF"
+                }
+              />
+            }
+          />
         </View>
       </View>
     );
   },
 };
 
-// All combinations
+// All combinations - Interactive (shows all combinations, but you can control them)
 export const AllCombinations: Story = {
-  render: () => {
-    const variants: Array<'primary' | 'secondary' | 'tertiary' | 'surface' | 'outline' | 'ghost' | 'danger' | 'liquidGlass'> = [
-      'primary',
-      'secondary',
-      'tertiary',
-      'surface',
-      'outline',
-      'ghost',
-      'danger',
-      'liquidGlass',
+  args: {
+    children: "Button",
+    variant: "primary",
+    size: "md",
+    onPress: () => alert("Button pressed"),
+  },
+  render: (args) => {
+    const variants: Array<
+      | "primary"
+      | "secondary"
+      | "tertiary"
+      | "surface"
+      | "outline"
+      | "ghost"
+      | "danger"
+      | "liquidGlass"
+    > = [
+      "primary",
+      "secondary",
+      "tertiary",
+      "surface",
+      "outline",
+      "ghost",
+      "danger",
+      "liquidGlass",
     ];
-    const sizes: Array<'sm' | 'md' | 'lg'> = ['sm', 'md', 'lg'];
+    const sizes: Array<"sm" | "md" | "lg"> = ["sm", "md", "lg"];
 
     return (
       <View style={styles.combinationsContainer}>
         {variants.map((variant) => (
           <View key={variant} style={styles.combinationRow}>
             <View style={styles.variantLabel}>
-              <Button variant="ghost" size="sm" onPress={() => {}} style={styles.labelButton}>
-                {variant}:
+              <Button
+                variant="ghost"
+                size="sm"
+                onPress={() => {}}
+                style={styles.labelButton}
+              >
+                {`${variant}:`}
               </Button>
             </View>
             <View style={styles.combinationButtons}>
               {sizes.map((size) => (
                 <Button
                   key={`${variant}-${size}`}
+                  {...args}
                   variant={variant}
                   size={size}
                   onPress={() => {}}
-                  style={styles.combinationButton}>
+                  style={styles.combinationButton}
+                >
                   {size}
                 </Button>
               ))}
@@ -219,17 +275,17 @@ export const AllCombinations: Story = {
 // Interactive example
 export const Interactive: Story = {
   args: {
-    children: 'Click me!',
-    variant: 'primary',
-    size: 'md',
-    onPress: () => alert('Button clicked!'),
+    children: "Click me!",
+    variant: "primary",
+    size: "md",
+    onPress: () => alert("Button clicked!"),
   },
 };
 
 const styles = StyleSheet.create({
   container: {
     gap: 16,
-    alignItems: 'flex-start',
+    alignItems: "flex-start",
   },
   buttonWrapper: {
     marginBottom: 8,
@@ -238,8 +294,8 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   combinationRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 8,
   },
   variantLabel: {
@@ -249,7 +305,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   combinationButtons: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 8,
     flex: 1,
   },
@@ -257,4 +313,3 @@ const styles = StyleSheet.create({
     minWidth: 60,
   },
 });
-

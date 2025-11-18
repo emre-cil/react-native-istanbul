@@ -51,102 +51,105 @@ type Story = StoryObj<typeof Toggle>;
 
 // Default story
 export const Default: Story = {
-  render: () => {
-    const [value, setValue] = useState(false);
+  args: {
+    value: false,
+    variant: 'default',
+    size: 'md',
+    disabled: false,
+    label: 'Toggle',
+    labelPosition: 'right',
+    activeColor: 'primary',
+  },
+  render: (args) => {
+    const [value, setValue] = useState(args.value);
     return (
-      <Toggle value={value} onValueChange={setValue} />
+      <Toggle {...args} value={value} onValueChange={setValue} />
     );
   },
 };
 
-// Variants
+// Variants - Interactive
 export const Variants: Story = {
-  render: () => {
-    const [value1, setValue1] = useState(false);
-    const [value2, setValue2] = useState(true);
-
+  args: {
+    value: false,
+    variant: 'default',
+    size: 'md',
+    disabled: false,
+    label: 'Toggle',
+    labelPosition: 'right',
+    activeColor: 'primary',
+  },
+  render: (args) => {
+    const [value, setValue] = useState(args.value);
     return (
-      <ScrollView style={styles.container}>
-        <View style={styles.item}>
-          <Toggle
-            variant="default"
-            value={value1}
-            onValueChange={setValue1}
-            label="Default Variant"
-          />
-        </View>
-        <View style={styles.item}>
-          <Toggle
-            variant="liquidGlass"
-            value={value2}
-            onValueChange={setValue2}
-            label="Liquid Glass Variant"
-          />
-        </View>
-      </ScrollView>
+      <Toggle {...args} value={value} onValueChange={setValue} />
     );
   },
 };
 
-// Sizes
+// Sizes - Interactive (shows all sizes)
 export const Sizes: Story = {
-  render: () => {
-    const [value1, setValue1] = useState(false);
-    const [value2, setValue2] = useState(false);
-    const [value3, setValue3] = useState(false);
-
+  args: {
+    value: false,
+    variant: 'default',
+    size: 'sm',
+    disabled: false,
+    label: 'Toggle',
+    labelPosition: 'right',
+    activeColor: 'primary',
+  },
+  render: (args) => {
+    const sizes: Array<'sm' | 'md' | 'lg'> = ['sm', 'md', 'lg'];
     return (
       <ScrollView style={styles.container}>
-        <View style={styles.item}>
-          <Toggle
-            size="sm"
-            value={value1}
-            onValueChange={setValue1}
-            label="Small"
-          />
-        </View>
-        <View style={styles.item}>
-          <Toggle
-            size="md"
-            value={value2}
-            onValueChange={setValue2}
-            label="Medium"
-          />
-        </View>
-        <View style={styles.item}>
-          <Toggle
-            size="lg"
-            value={value3}
-            onValueChange={setValue3}
-            label="Large"
-          />
-        </View>
+        {sizes.map((size) => {
+          const [value, setValue] = useState(args.value);
+          return (
+            <View key={size} style={styles.item}>
+              <Toggle
+                {...args}
+                size={size}
+                value={value}
+                onValueChange={setValue}
+                label={`${size.charAt(0).toUpperCase() + size.slice(1)}`}
+              />
+            </View>
+          );
+        })}
       </ScrollView>
     );
   },
 };
 
-// With labels
+// With labels - Interactive (shows label positions)
 export const WithLabels: Story = {
-  render: () => {
-    const [value1, setValue1] = useState(false);
-    const [value2, setValue2] = useState(false);
-
+  args: {
+    value: false,
+    variant: 'default',
+    size: 'md',
+    disabled: false,
+    label: 'Toggle Label',
+    labelPosition: 'right',
+    activeColor: 'primary',
+  },
+  render: (args) => {
+    const [value1, setValue1] = useState(args.value);
+    const [value2, setValue2] = useState(args.value);
     return (
       <ScrollView style={styles.container}>
         <View style={styles.item}>
           <Toggle
+            {...args}
             value={value1}
             onValueChange={setValue1}
-            label="Label on right"
             labelPosition="right"
           />
         </View>
         <View style={styles.item}>
           <Toggle
+            {...args}
             value={value2}
             onValueChange={setValue2}
-            label="Label on left"
             labelPosition="left"
           />
         </View>
@@ -155,82 +158,70 @@ export const WithLabels: Story = {
   },
 };
 
-// Colors
+// Colors - Interactive (shows all colors)
 export const Colors: Story = {
-  render: () => {
-    const [value1, setValue1] = useState(true);
-    const [value2, setValue2] = useState(true);
-    const [value3, setValue3] = useState(true);
-    const [value4, setValue4] = useState(true);
-
+  args: {
+    value: true,
+    variant: 'default',
+    size: 'md',
+    disabled: false,
+    label: 'Toggle',
+    labelPosition: 'right',
+    activeColor: 'primary',
+  },
+  render: (args) => {
+    const colors = ['primary', 'secondary', 'success', 'error'] as const;
     return (
       <ScrollView style={styles.container}>
-        <View style={styles.item}>
-          <Toggle
-            value={value1}
-            onValueChange={setValue1}
-            activeColor="primary"
-            label="Primary"
-          />
-        </View>
-        <View style={styles.item}>
-          <Toggle
-            value={value2}
-            onValueChange={setValue2}
-            activeColor="secondary"
-            label="Secondary"
-          />
-        </View>
-        <View style={styles.item}>
-          <Toggle
-            value={value3}
-            onValueChange={setValue3}
-            activeColor="success"
-            label="Success"
-          />
-        </View>
-        <View style={styles.item}>
-          <Toggle
-            value={value4}
-            onValueChange={setValue4}
-            activeColor="error"
-            label="Error"
-          />
-        </View>
+        {colors.map((color) => {
+          const [value, setValue] = useState(args.value);
+          return (
+            <View key={color} style={styles.item}>
+              <Toggle
+                {...args}
+                value={value}
+                onValueChange={setValue}
+                activeColor={color}
+                label={color.charAt(0).toUpperCase() + color.slice(1)}
+              />
+            </View>
+          );
+        })}
       </ScrollView>
     );
   },
 };
 
-// Disabled state
+// Disabled state - Interactive
 export const Disabled: Story = {
-  render: () => {
+  args: {
+    value: false,
+    variant: 'default',
+    size: 'md',
+    disabled: true,
+    label: 'Disabled Toggle',
+    labelPosition: 'right',
+    activeColor: 'primary',
+  },
+  render: (args) => {
     return (
-      <ScrollView style={styles.container}>
-        <View style={styles.item}>
-          <Toggle
-            value={false}
-            onValueChange={() => {}}
-            disabled
-            label="Disabled (off)"
-          />
-        </View>
-        <View style={styles.item}>
-          <Toggle
-            value={true}
-            onValueChange={() => {}}
-            disabled
-            label="Disabled (on)"
-          />
-        </View>
-      </ScrollView>
+      <Toggle {...args} onValueChange={() => {}} />
     );
   },
 };
 
-// All combinations
+// All combinations - Interactive (shows all combinations)
 export const AllCombinations: Story = {
-  render: () => {
+  args: {
+    value: false,
+    variant: 'default',
+    size: 'md',
+    disabled: false,
+    label: 'Toggle',
+    labelPosition: 'right',
+    activeColor: 'primary',
+  },
+  render: (args) => {
     const variants: Array<'default' | 'liquidGlass'> = ['default', 'liquidGlass'];
     const sizes: Array<'sm' | 'md' | 'lg'> = ['sm', 'md', 'lg'];
 
@@ -239,10 +230,11 @@ export const AllCombinations: Story = {
         {variants.map((variant) => (
           <View key={variant} style={styles.combinationSection}>
             {sizes.map((size) => {
-              const [value, setValue] = useState(false);
+              const [value, setValue] = useState(args.value);
               return (
                 <View key={`${variant}-${size}`} style={styles.item}>
                   <Toggle
+                    {...args}
                     variant={variant}
                     size={size}
                     value={value}
