@@ -209,8 +209,8 @@ export const Button: React.FC<ButtonProps> = ({
   const handlePressIn = () => {
     if (variant === "liquidGlass" && !disabled) {
       scale.value = withSpring(0.95, {
-        damping: 15,
-        stiffness: 150,
+        damping: 20,
+        stiffness: 250,
       });
     }
   };
@@ -218,8 +218,8 @@ export const Button: React.FC<ButtonProps> = ({
   const handlePressOut = () => {
     if (variant === "liquidGlass" && !disabled) {
       scale.value = withSpring(1, {
-        damping: 15,
-        stiffness: 150,
+        damping: 20,
+        stiffness: 250,
       });
     }
   };
